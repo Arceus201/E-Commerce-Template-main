@@ -5,7 +5,7 @@ const TopMenu = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-0">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          E-Commerce
+          Home
         </Link>
         <button
           className="navbar-toggler"
@@ -37,11 +37,11 @@ const TopMenu = () => {
               </Link>
             </li >
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/checkout">
-                Checkout Page
+                Checkout
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

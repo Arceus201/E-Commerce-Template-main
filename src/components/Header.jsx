@@ -52,7 +52,7 @@ const Header = () => {
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      <IconPersonBadgeFill /> My Profile
+                      <IconPersonBadgeFill /> Trang cá nhân
                     </Link>
                   </li>
                   {/* <li>
