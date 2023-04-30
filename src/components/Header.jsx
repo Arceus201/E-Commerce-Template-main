@@ -93,7 +93,7 @@ const Header = () => {
                   </li>
                 </ul>
               </div>
-              <a
+              {/* <a
                 href="https://www.buymeacoffee.com/bhaumik"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -102,7 +102,7 @@ const Header = () => {
                   src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
                   alt="BuyMeACoffee" width="120"
                 />
-              </a>
+              </a> */}
               {/* <Link to="/account/signin">Sign In</Link> |{" "}
               <Link to="/account/signup"> Sign Up</Link> */}
             </div>

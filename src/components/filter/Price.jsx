@@ -21,7 +21,7 @@ const FilterPrice = (props) => {
               id="flexCheckDefault1"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault1">
-              $24.00 - $29.00 <span className="text-muted">(4)</span>
+              0 - 1.000.000  <span className="text-muted"></span>
             </label>
           </div>
         </li>
@@ -33,7 +33,7 @@ const FilterPrice = (props) => {
               id="flexCheckDefault2"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault2">
-              $33.00 - $35.00 <span className="text-muted">(2)</span>
+              1.000.000 - 3.000.000 <span className="text-muted"></span>
             </label>
           </div>
         </li>
@@ -45,7 +45,31 @@ const FilterPrice = (props) => {
               id="flexCheckDefault3"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault3">
-              $70.00 - $99.00 <span className="text-muted">(5)</span>
+              3.000.000 - 5.000.000 <span className="text-muted"></span>
+            </label>
+          </div>
+        </li>
+        <li className="list-group-item">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="flexCheckDefault4"
+            />
+            <label className="form-check-label" htmlFor="flexCheckDefault3">
+              5.000.000 - 10.000.000 <span className="text-muted"></span>
+            </label>
+          </div>
+        </li>
+        <li className="list-group-item">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="flexCheckDefault4"
+            />
+            <label className="form-check-label" htmlFor="flexCheckDefault3">
+              lớn hơn 10.000.000 <span className="text-muted"></span>
             </label>
           </div>
         </li>

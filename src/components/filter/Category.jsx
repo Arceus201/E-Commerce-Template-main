@@ -18,33 +18,23 @@ const FilterCategory = (props) => {
         id="filterCategory"
       >
         <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            Clothing
+          <Link to="/category" className="text-decoration-none stretched-link">
+            Laptop
           </Link>
         </li>
         <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            Leather Bag
+          <Link to="/category" className="text-decoration-none stretched-link">
+            Headset
           </Link>
         </li>
         <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            Trausers
+          <Link to="/category" className="text-decoration-none stretched-link">
+            Phone
           </Link>
         </li>
         <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            Sweater & Cardigans
-          </Link>
-        </li>
-        <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            High Heels
-          </Link>
-        </li>
-        <li className="list-group-item">
-          <Link to="/" className="text-decoration-none stretched-link">
-            Coats & Jackets
+          <Link to="/category" className="text-decoration-none stretched-link">
+            Tivi
           </Link>
         </li>
       </ul>

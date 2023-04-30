@@ -66,7 +66,7 @@ class ProductListView extends Component {
         >
           <div className="container text-center">
             <span className="display-5 px-3 bg-white rounded shadow">
-              T-Shirts
+              Electron-Category
             </span>
           </div>
         </div>
@@ -76,12 +76,12 @@ class ProductListView extends Component {
             <div className="col-md-3">
               <FilterCategory />
               <FilterPrice />
-              <FilterSize />
+              {/* <FilterSize />
               <FilterStar />
               <FilterColor />
               <FilterClear />
               <FilterTag />
-              <CardServices />
+              <CardServices /> */}
             </div>
             <div className="col-md-9">
               <div className="row">
@@ -92,7 +92,7 @@ class ProductListView extends Component {
                   </span>
                 </div>
                 <div className="col-5 d-flex justify-content-end">
-                  <select
+                  {/* <select
                     className="form-select mw-180 float-start"
                     aria-label="Default select"
                   >
@@ -101,17 +101,16 @@ class ProductListView extends Component {
                     <option value={3}>Trending</option>
                     <option value={4}>Price low to high</option>
                     <option value={4}>Price high to low</option>
-                  </select>
+                  </select> */}
                   <div className="btn-group ms-3" role="group">
                     <button
                       aria-label="Grid"
                       type="button"
                       onClick={() => this.onChangeView("grid")}
-                      className={`btn ${
-                        this.state.view === "grid"
-                          ? "btn-primary"
-                          : "btn-outline-primary"
-                      }`}
+                      className={`btn ${this.state.view === "grid"
+                        ? "btn-primary"
+                        : "btn-outline-primary"
+                        }`}
                     >
                       <FontAwesomeIcon icon={faTh} />
                     </button>
@@ -119,11 +118,10 @@ class ProductListView extends Component {
                       aria-label="List"
                       type="button"
                       onClick={() => this.onChangeView("list")}
-                      className={`btn ${
-                        this.state.view === "list"
-                          ? "btn-primary"
-                          : "btn-outline-primary"
-                      }`}
+                      className={`btn ${this.state.view === "list"
+                        ? "btn-primary"
+                        : "btn-outline-primary"
+                        }`}
                     >
                       <FontAwesomeIcon icon={faBars} />
                     </button>

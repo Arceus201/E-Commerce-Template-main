@@ -95,11 +95,6 @@ class HomeView extends Component {
             </div>
           </div>
         </div>
-
-
-
-
-
       </React.Fragment>
     );
   }

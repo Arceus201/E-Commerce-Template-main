@@ -75,7 +75,7 @@ class CheckoutView extends Component {
                         placeholder="Address 2 (Optional)"
                       />
                     </div>
-                    <div className="col-md-4">
+                    {/* <div className="col-md-4">
                       <select className="form-select" required>
                         <option value>-- Country --</option>
                         <option>United States</option>
@@ -94,12 +94,12 @@ class CheckoutView extends Component {
                         placeholder="Zip"
                         required
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
 
-              <div className="card mb-3">
+              {/* <div className="card mb-3">
                 <div className="card-header">
                   <IconReceipt className="i-va" /> Billing Infomation
                   <div className="form-check form-check-inline ms-3">
@@ -164,7 +164,7 @@ class CheckoutView extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="card mb-3 border-info">
                 <div className="card-header bg-info">
@@ -287,13 +287,13 @@ class CheckoutView extends Component {
                     </div>
                     <span className="text-muted">$50</span>
                   </li>
-                  <li className="list-group-item d-flex justify-content-between bg-light">
+                  {/* <li className="list-group-item d-flex justify-content-between bg-light">
                     <div className="text-success">
                       <h6 className="my-0">Promo code</h6>
                       <small>EXAMPLECODE</small>
                     </div>
                     <span className="text-success">−$50</span>
-                  </li>
+                  </li> */}
                   <li className="list-group-item d-flex justify-content-between">
                     <span>Total (USD)</span>
                     <strong>$162</strong>

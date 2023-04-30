@@ -61,9 +61,9 @@ class CartView extends Component {
                               >
                                 Another name of some product goes just here
                               </Link>
-                              <p className="small text-muted">
+                              {/* <p className="small text-muted">
                                 Size: XL, Color: blue, Brand: XYZ
-                              </p>
+                              </p> */}
                             </div>
                           </div>
                         </td>
@@ -90,14 +90,14 @@ class CartView extends Component {
                         </td>
                         <td>
                           <var className="price">$237.00</var>
-                          <small className="d-block text-muted">
+                          {/* <small className="d-block text-muted">
                             $79.00 each
-                          </small>
+                          </small> */}
                         </td>
                         <td className="text-end">
-                          <button className="btn btn-sm btn-outline-secondary me-2">
+                          {/* <button className="btn btn-sm btn-outline-secondary me-2">
                             <IconHeartFill className="i-va" />
-                          </button>
+                          </button> */}
                           <button className="btn btn-sm btn-outline-danger">
                             <IconTrash className="i-va" />
                           </button>
@@ -120,9 +120,9 @@ class CartView extends Component {
                               >
                                 Another name of some product goes just here
                               </Link>
-                              <p className="small text-muted">
+                              {/* <p className="small text-muted">
                                 Size: XL, Color: blue, Brand: XYZ
-                              </p>
+                              </p> */}
                             </div>
                           </div>
                         </td>
@@ -149,14 +149,14 @@ class CartView extends Component {
                         </td>
                         <td>
                           <var className="price">$237.00</var>
-                          <small className="d-block text-muted">
+                          {/* <small className="d-block text-muted">
                             $79.00 each
-                          </small>
+                          </small> */}
                         </td>
                         <td className="text-end">
-                          <button className="btn btn-sm btn-outline-secondary me-2">
+                          {/* <button className="btn btn-sm btn-outline-secondary me-2">
                             <IconHeartFill className="i-va" />
-                          </button>
+                          </button> */}
                           <button className="btn btn-sm btn-outline-danger">
                             <IconTrash className="i-va" />
                           </button>
@@ -169,24 +169,24 @@ class CartView extends Component {
                   <Link to="/checkout" className="btn btn-primary float-end">
                     Make Purchase <IconChevronRight className="i-va" />
                   </Link>
-                  <Link to="/" className="btn btn-secondary">
+                  <Link to="/category" className="btn btn-secondary">
                     <IconChevronLeft className="i-va" /> Continue shopping
                   </Link>
                 </div>
               </div>
-              <div className="alert alert-success mt-3">
+              {/* <div className="alert alert-success mt-3">
                 <p className="m-0">
                   <IconTruck className="i-va me-2" /> Free Delivery within 1-2
                   weeks
                 </p>
-              </div>
+              </div> */}
             </div>
             <div className="col-md-3">
-              <div className="card mb-3">
+              {/* <div className="card mb-3">
                 <div className="card-body">
                   <CouponApplyForm onSubmit={this.onSubmitApplyCouponCode} />
                 </div>
-              </div>
+              </div> */}
               <div className="card">
                 <div className="card-body">
                   <dl className="row border-bottom">

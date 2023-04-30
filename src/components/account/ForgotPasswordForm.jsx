@@ -20,16 +20,16 @@ const ForgotPasswordForm = (props) => {
       noValidate
     >
       <Field
-        name="mobileNo"
-        type="number"
-        label="Mobile no"
+        name="email"
+        type="email"
+        label="Email"
         component={renderFormGroupField}
-        placeholder="Mobile no without country code"
+        placeholder="Your Email"
         icon={IconPhone}
-        validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
-        required={true}
-        max="999999999999999"
-        min="9999"
+        // validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
+        // required={true}
+        // max="999999999999999"
+        // min="9999"
         className="mb-3"
       />
       <div className="d-grid">

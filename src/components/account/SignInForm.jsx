@@ -29,16 +29,16 @@ const SignInForm = (props) => {
       noValidate
     >
       <Field
-        name="mobileNo"
-        type="number"
-        label="Mobile no"
+        name="email"
+        type="email"
+        label="Email"
         component={renderFormGroupField}
-        placeholder="Mobile no without country code"
+        placeholder="Your Email"
         icon={IconPhone}
-        validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
-        required={true}
-        max="999999999999999"
-        min="9999"
+        // validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
+        // required={true}
+        // max="999999999999999"
+        // min="9999"
         className="mb-3"
       />
       <Field
@@ -80,9 +80,7 @@ const SignInForm = (props) => {
           <p className="text-muted small">Or you can join with</p>
         </div>
         <div className="col- text-center">
-          <Link to="/" className="btn btn-light text-white bg-twitter me-3">
-            <FontAwesomeIcon icon={faTwitter} />
-          </Link>
+
           <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
             <FontAwesomeIcon icon={faFacebookF} className="mx-1" />
           </Link>
