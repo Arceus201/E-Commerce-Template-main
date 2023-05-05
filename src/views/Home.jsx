@@ -27,10 +27,10 @@ class HomeView extends Component {
     IconHeadset: IconHeadset,
     IconPhone: IconPhone,
     IconTv: IconTv,
-    // IconDisplay: IconDisplay,
-    // IconHdd: IconHdd,
-    // IconUpcScan: IconUpcScan,
-    // IconTools: IconTools,
+    IconDisplay: IconLaptop,
+    IconHdd: IconHeadset,
+    IconUpcScan: IconPhone,
+    IconTools: IconTv,
   };
 
   render() {
