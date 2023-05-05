@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
@@ -16,22 +16,52 @@ import {
   faTwitter,
   faFacebookF,
   faGoogle,
-} from "@fortawesome/free-brands-svg-icons";
+}
+  from "@fortawesome/free-brands-svg-icons";
 import { ReactComponent as IconPhone } from "bootstrap-icons/icons/phone.svg";
 import { ReactComponent as IconShieldLock } from "bootstrap-icons/icons/shield-lock.svg";
+import axios from 'axios';
 
 const SignInForm = (props) => {
-  const { handleSubmit, submitting, onSubmit, submitFailed } = props;
+  // const { handleSubmit, submitting,onSubmit, submitFailed } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3006/login', {
+        email,
+        password
+      });
+
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", true);
+        window.location.href = '/';
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
-      noValidate
+      onSubmit={handleSubmit}
+    // className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
+    // noValidate
     >
       <Field
         name="email"
         type="email"
         label="Email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
         component={renderFormGroupField}
         placeholder="Your Email"
         icon={IconPhone}
@@ -45,6 +75,8 @@ const SignInForm = (props) => {
         name="password"
         type="password"
         label="Your password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
         component={renderFormGroupField}
         placeholder="******"
         icon={IconShieldLock}
@@ -58,7 +90,6 @@ const SignInForm = (props) => {
         <button
           type="submit"
           className="btn btn-primary mb-3"
-          disabled={submitting}
         >
           Log In
         </button>

@@ -17,8 +17,9 @@ const FilterPrice = (props) => {
           <div className="form-check">
             <input
               className="form-check-input"
-              type="checkbox"
+              type="radio"
               id="flexCheckDefault1"
+              name="category"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault1">
               0 - 1.000.000  <span className="text-muted"></span>
@@ -29,8 +30,9 @@ const FilterPrice = (props) => {
           <div className="form-check">
             <input
               className="form-check-input"
-              type="checkbox"
+              type="radio"
               id="flexCheckDefault2"
+              name="category"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault2">
               1.000.000 - 3.000.000 <span className="text-muted"></span>
@@ -41,8 +43,9 @@ const FilterPrice = (props) => {
           <div className="form-check">
             <input
               className="form-check-input"
-              type="checkbox"
+              type="radio"
               id="flexCheckDefault3"
+              name="category"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault3">
               3.000.000 - 5.000.000 <span className="text-muted"></span>
@@ -53,8 +56,9 @@ const FilterPrice = (props) => {
           <div className="form-check">
             <input
               className="form-check-input"
-              type="checkbox"
+              type="radio"
               id="flexCheckDefault4"
+              name="category"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault3">
               5.000.000 - 10.000.000 <span className="text-muted"></span>
@@ -65,8 +69,9 @@ const FilterPrice = (props) => {
           <div className="form-check">
             <input
               className="form-check-input"
-              type="checkbox"
+              type="radio"
               id="flexCheckDefault4"
+              name="category"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault3">
               lớn hơn 10.000.000 <span className="text-muted"></span>

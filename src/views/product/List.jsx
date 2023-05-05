@@ -2,6 +2,7 @@ import React, { lazy, Component } from "react";
 import { data } from "../../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "bootstrap";
 const Paging = lazy(() => import("../../components/Paging"));
 const Breadcrumb = lazy(() => import("../../components/Breadcrumb"));
 const FilterCategory = lazy(() => import("../../components/filter/Category"));
@@ -76,12 +77,18 @@ class ProductListView extends Component {
             <div className="col-md-3">
               <FilterCategory />
               <FilterPrice />
-              {/* <FilterSize />
-              <FilterStar />
-              <FilterColor />
-              <FilterClear />
-              <FilterTag />
-              <CardServices /> */}
+              <button
+                type="button"
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: 'blue',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  marginLeft: '100px'
+                }}> Lọc
+
+              </button>
             </div>
             <div className="col-md-9">
               <div className="row">
