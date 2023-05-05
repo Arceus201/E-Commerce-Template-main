@@ -16,35 +16,24 @@ const CardProductList = (props) => {
     }
   }, []);
 
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://example.com/products")
-  //     .then((response) => {
-  //       setProducts(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   const product = props.data;
   return (
     <div className="card">
       <div className="row g-0">
         <div className="col-md-3 text-center">
-          <img src={product.img} className="img-fluid" alt="..." />
+          <img src={product.img[0]} className="img-fluid" alt="..." />
         </div>
         <div className="col-md-6">
           <div className="card-body">
             <h6 className="card-subtitle me-2 d-inline">
-              <Link to={product.link} className="text-decoration-none">
+              {product.title}
+              {/* <Link to={product.link} className="text-decoration-none">
                 {product.name}
-              </Link>
+              </Link> */}
             </h6>
 
-            {product.description &&
+            {/* {product.description &&
               product.description.includes("|") === false && (
                 <p className="small mt-2">{product.description}</p>
               )}
@@ -54,7 +43,7 @@ const CardProductList = (props) => {
                   <li key={idx}>{desc}</li>
                 ))}
               </ul>
-            )}
+            )} */}
           </div>
         </div>
         <div className="col-md-3">

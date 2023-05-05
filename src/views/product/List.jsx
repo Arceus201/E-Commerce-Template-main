@@ -1,8 +1,9 @@
 import React, { lazy, Component } from "react";
-import { data } from "../../data";
+// import { data } from "../../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "bootstrap";
+import axios from "axios";
 const Paging = lazy(() => import("../../components/Paging"));
 const Breadcrumb = lazy(() => import("../../components/Breadcrumb"));
 const FilterCategory = lazy(() => import("../../components/filter/Category"));
@@ -27,33 +28,39 @@ class ProductListView extends Component {
     totalPages: null,
     totalItems: 0,
     view: "list",
+    pageLimit: 9,
+    products: [],
   };
+  // componentDidMount() {
+  //   this.getProducts();
+  // }
 
-  UNSAFE_componentWillMount() {
-    const totalItems = this.getProducts().length;
-    this.setState({ totalItems });
+
+  async componentDidMount() {
+    try {
+      const response = await fetch("https://dummyjson.com/products");
+      const products = await response.json();
+      this.setState({
+        products,
+        currentProducts: products.slice(0, 9),
+        totalItems: products.length,
+        totalPages: Math.ceil(products.length / 9),
+        currentPage: 1,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   onPageChanged = (page) => {
-    let products = this.getProducts();
     const { currentPage, totalPages, pageLimit } = page;
     const offset = (currentPage - 1) * pageLimit;
-    const currentProducts = products.slice(offset, offset + pageLimit);
+    const currentProducts = this.state.products.slice(offset, offset + pageLimit);
     this.setState({ currentPage, currentProducts, totalPages });
   };
 
   onChangeView = (view) => {
     this.setState({ view });
-  };
-
-  getProducts = () => {
-    let products = data.products;
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    return products;
   };
 
   render() {
@@ -95,20 +102,11 @@ class ProductListView extends Component {
                 <div className="col-7">
                   <span className="align-middle fw-bold">
                     {this.state.totalItems} results for{" "}
-                    <span className="text-warning">"t-shirts"</span>
+                    <span className="text-warning">Category</span>
                   </span>
                 </div>
                 <div className="col-5 d-flex justify-content-end">
-                  {/* <select
-                    className="form-select mw-180 float-start"
-                    aria-label="Default select"
-                  >
-                    <option value={1}>Most Popular</option>
-                    <option value={2}>Latest items</option>
-                    <option value={3}>Trending</option>
-                    <option value={4}>Price low to high</option>
-                    <option value={4}>Price high to low</option>
-                  </select> */}
+
                   <div className="btn-group ms-3" role="group">
                     <button
                       aria-label="Grid"
@@ -138,17 +136,17 @@ class ProductListView extends Component {
               <hr />
               <div className="row g-3">
                 {this.state.view === "grid" &&
-                  this.state.currentProducts.map((product, idx) => {
+                  this.state.currentProducts.map((product) => {
                     return (
-                      <div key={idx} className="col-md-4">
+                      <div className="col-md-4">
                         <CardProductGrid data={product} />
                       </div>
                     );
                   })}
                 {this.state.view === "list" &&
-                  this.state.currentProducts.map((product, idx) => {
+                  this.state.currentProducts.map((product) => {
                     return (
-                      <div key={idx} className="col-md-12">
+                      <div className="col-md-12">
                         <CardProductList data={product} />
                       </div>
                     );
