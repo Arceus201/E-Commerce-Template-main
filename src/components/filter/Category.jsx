@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios"
 const FilterCategory = (props) => {
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/categories/all");
+      setCategories(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   return (
     <div className="card mb-3">
       <div
@@ -14,55 +26,20 @@ const FilterCategory = (props) => {
         Category
       </div>
       <ul className="list-group list-group-flush show" id="filterPrice">
-        <li className="list-group-item">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexCheckDefault1"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault1">
-              Laptop  <span className="text-muted"></span>
-            </label>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexCheckDefault2"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault2">
-              Head Phone<span className="text-muted"></span>
-            </label>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexCheckDefault3"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault3">
-              Phone <span className="text-muted"></span>
-            </label>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexCheckDefault4"
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault3">
-              Tivi<span className="text-muted"></span>
-            </label>
-          </div>
-        </li>
-
+        {categories.map((category) => (
+          <li className="list-group-item">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="flexCheckDefault1"
+              />
+              <label className="form-check-label" htmlFor="flexCheckDefault1">
+                {category.name}  <span className="text-muted"></span>
+              </label>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -34,14 +34,16 @@ const SignInForm = (props) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3006/login', {
-        email,
-        password
+      const response = await axios.post('http://localhost:8080/api/users/login', {
+        "email": email,
+        "password": password
       });
 
       if (response.status === 200) {
+        const user = response.data.user;
+        sessionStorage.setItem('user', JSON.stringify(user));
         setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", true);
+        sessionStorage.setItem("isLoggedIn", true);
         window.location.href = '/';
 
       }

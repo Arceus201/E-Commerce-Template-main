@@ -36,13 +36,13 @@ const SignUpForm = ({ history }) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3006/user', {
-        user,
-        email,
-        password
+      const response = await axios.post('http://localhost:8080/api/users/register', {
+        "email": email,
+        "password": password,
+        "full_name": user
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         window.location.href = '/account/signin';
       }
     } catch (error) {

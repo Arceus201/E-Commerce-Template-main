@@ -45,7 +45,9 @@ class CartView extends Component {
                     </thead>
                     <tbody>
                       <tr>
+
                         <td>
+
                           <div className="row">
                             <div className="col-3 d-none d-md-block">
                               <img
@@ -55,15 +57,14 @@ class CartView extends Component {
                               />
                             </div>
                             <div className="col">
+
                               <Link
                                 to="/product/detail"
                                 className="text-decoration-none"
                               >
                                 Another name of some product goes just here
                               </Link>
-                              {/* <p className="small text-muted">
-                                Size: XL, Color: blue, Brand: XYZ
-                              </p> */}
+
                             </div>
                           </div>
                         </td>
@@ -90,78 +91,22 @@ class CartView extends Component {
                         </td>
                         <td>
                           <var className="price">$237.00</var>
-                          {/* <small className="d-block text-muted">
-                            $79.00 each
-                          </small> */}
                         </td>
                         <td className="text-end">
-                          {/* <button className="btn btn-sm btn-outline-secondary me-2">
-                            <IconHeartFill className="i-va" />
-                          </button> */}
                           <button className="btn btn-sm btn-outline-danger">
                             <IconTrash className="i-va" />
                           </button>
                         </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="row">
-                            <div className="col-3 d-none d-md-block">
-                              <img
-                                src="../../images/products/tshirt_grey_480x400.webp"
-                                width="80"
-                                alt="..."
-                              />
-                            </div>
-                            <div className="col">
-                              <Link
-                                to="/product/detail"
-                                className="text-decoration-none"
-                              >
-                                Another name of some product goes just here
-                              </Link>
-                              {/* <p className="small text-muted">
-                                Size: XL, Color: blue, Brand: XYZ
-                              </p> */}
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="input-group input-group-sm mw-140">
-                            <button
-                              className="btn btn-primary text-white"
-                              type="button"
-                            >
-                              <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                            <input
-                              type="text"
-                              className="form-control"
-                              defaultValue="1"
-                            />
-                            <button
-                              className="btn btn-primary text-white"
-                              type="button"
-                            >
-                              <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                          </div>
-                        </td>
-                        <td>
-                          <var className="price">$237.00</var>
-                          {/* <small className="d-block text-muted">
-                            $79.00 each
-                          </small> */}
-                        </td>
                         <td className="text-end">
-                          {/* <button className="btn btn-sm btn-outline-secondary me-2">
-                            <IconHeartFill className="i-va" />
-                          </button> */}
-                          <button className="btn btn-sm btn-outline-danger">
-                            <IconTrash className="i-va" />
-                          </button>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="flexCheckDefault1"
+                            style={{ transform: "scale(1.5)" }}>
+                          </input>
                         </td>
                       </tr>
+
                     </tbody>
                   </table>
                 </div>
@@ -174,38 +119,15 @@ class CartView extends Component {
                   </Link>
                 </div>
               </div>
-              {/* <div className="alert alert-success mt-3">
-                <p className="m-0">
-                  <IconTruck className="i-va me-2" /> Free Delivery within 1-2
-                  weeks
-                </p>
-              </div> */}
+
             </div>
             <div className="col-md-3">
-              {/* <div className="card mb-3">
-                <div className="card-body">
-                  <CouponApplyForm onSubmit={this.onSubmitApplyCouponCode} />
-                </div>
-              </div> */}
+
               <div className="card">
                 <div className="card-body">
                   <dl className="row border-bottom">
                     <dt className="col-6">Total price:</dt>
                     <dd className="col-6 text-end">$1,568</dd>
-
-                    {/* <dt className="col-6 text-success">Discount:</dt>
-                    <dd className="col-6 text-success text-end">-$58</dd>
-                    <dt className="col-6 text-success">
-                      Coupon:{" "}
-                      <span className="small text-muted">EXAMPLECODE</span>{" "}
-                    </dt>
-                    <dd className="col-6 text-success text-end">-$68</dd>
-                  </dl>
-                  <dl className="row">
-                    <dt className="col-6">Total:</dt>
-                    <dd className="col-6 text-end  h5">
-                      <strong>$1,350</strong>
-                    </dd> */}
                   </dl>
                   <hr />
                   <p className="text-center">

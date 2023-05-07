@@ -38,7 +38,7 @@ class ProductListView extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch("https://dummyjson.com/products");
+      const response = await fetch("http://localhost:8080/api/products/all");
       const products = await response.json();
       this.setState({
         products,

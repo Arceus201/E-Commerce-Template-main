@@ -5,12 +5,13 @@ import { ReactComponent as IconTruckFill } from "bootstrap-icons/icons/truck.svg
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
+import numeral from 'numeral';
 
 const CardProductList = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const isLoggedInStorage = localStorage.getItem('isLoggedIn');
+    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
     if (isLoggedInStorage === 'true') {
       setIsLoggedIn(true);
     }
@@ -22,28 +23,17 @@ const CardProductList = (props) => {
     <div className="card">
       <div className="row g-0">
         <div className="col-md-3 text-center">
-          <img src={product.img[0]} className="img-fluid" alt="..." />
+          <img src={product.image} style={{ width: '350px', height: '200px' }} className="img-fluid" alt="..." />
         </div>
         <div className="col-md-6">
           <div className="card-body">
             <h6 className="card-subtitle me-2 d-inline">
-              {product.title}
-              {/* <Link to={product.link} className="text-decoration-none">
+              <Link to={`/product/detail/${product.id}`} className="text-decoration-none">
                 {product.name}
-              </Link> */}
+              </Link>
             </h6>
+            {product.quantity == 0 && <span className="badge bg-danger me-2">Hết Hàng</span>}
 
-            {/* {product.description &&
-              product.description.includes("|") === false && (
-                <p className="small mt-2">{product.description}</p>
-              )}
-            {product.description && product.description.includes("|") && (
-              <ul className="mt-2">
-                {product.description.split("|").map((desc, idx) => (
-                  <li key={idx}>{desc}</li>
-                ))}
-              </ul>
-            )} */}
           </div>
         </div>
         <div className="col-md-3">
@@ -55,7 +45,7 @@ const CardProductList = (props) => {
               </br>
               <br>
               </br>
-              <span className="fw-bold h5">${product.price}</span>
+              <span className="fw-bold h5" >{numeral(product.price).format('0,0.00')} VNĐ</span>
 
             </div>
 
@@ -63,19 +53,21 @@ const CardProductList = (props) => {
             <div className="btn-group d-flex" role="group">
 
 
-
-              <Link
-                to={isLoggedIn ? "/cart" : "/account/signin"}
-                className="btn btn-sm btn-primary"
-              >
-                <FontAwesomeIcon icon={faCartPlus} />
-              </Link>
-
+              {product.quantity > 0 &&
+                <>
+                  <Link
+                    to={isLoggedIn ? "/cart" : "/account/signin"}
+                    className="btn btn-sm btn-primary"
+                  >
+                    <FontAwesomeIcon icon={faCartPlus} />
+                  </Link>
+                </>
+              }
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

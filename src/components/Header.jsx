@@ -14,9 +14,11 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = JSON.parse(sessionStorage.getItem('user'));
 
   useEffect(() => {
-    const isLoggedInStorage = localStorage.getItem('isLoggedIn');
+    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
+
     if (isLoggedInStorage === 'true') {
       setIsLoggedIn(true);
     }
@@ -25,13 +27,16 @@ const Header = () => {
 
 
 
-  const [username, setUsername] = useState('');
+  //const [username, setUsername] = useState('');
 
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("user");
   };
+
+
 
 
 
@@ -66,6 +71,7 @@ const Header = () => {
                       </div>
                     </Link>
                   </div>
+
                   <div className="btn-group">
                     <button
                       type="button"
@@ -101,7 +107,12 @@ const Header = () => {
                         </Link>
                       </li>
                     </ul>
+                    <div>
+                      <span >{user.full_name}</span>
+                    </div>
                   </div>
+
+
                 </>
               ) : (
                 <li className="btn-group">
@@ -117,7 +128,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 export default Header;
