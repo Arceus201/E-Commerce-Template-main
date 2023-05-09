@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import renderFormGroupField from "../../helpers/renderFormGroupField";
 import renderFormFileInput from "../../helpers/renderFormFileInput";
+import axios from 'axios';
 import {
   required,
   maxLengthMobileNo,
@@ -22,11 +23,34 @@ const ProfileForm = (props) => {
   const {
     handleSubmit,
     submitting,
-    onSubmit,
     submitFailed,
-    onImageChange,
-    imagePreview,
+    // onImageChange,
+    // imagePreview,
   } = props;
+  const user = JSON.parse(sessionStorage.getItem('user'));
+
+
+  const onSubmit = (formData) => {
+
+    console.log("name " + formData.name);
+    console.log("mobi " + formData.mobileNo);
+    console.log("location " + formData.location);
+    // try {
+    //   await axios.put(`http://localhost:8080/api/users/${user.id}/edit-profile`, {
+    //     "name": formData.name,
+    //     "mobileNo": formData.mobileNo,
+    //     "location": formData.location
+    //   });
+
+    //   // Handle success
+    //   alert("Profile updated successfully!");
+    // } catch (error) {
+    //   // Handle error
+    //   alert("Failed to update profile. Please try again later.");
+    // }
+  }
+
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -37,24 +61,7 @@ const ProfileForm = (props) => {
         <h6 className="card-header">
           <IconPersonSquareFill /> Profile Detail
         </h6>
-        <img
-          src={imagePreview ? imagePreview : "../../images/NO_IMG.png"}
-          alt=""
-          className="card-img-top rounded-0 img-fluid bg-secondary"
-        />
-        <div className="card-body">
-          <Field
-            name="formFile"
-            component={renderFormFileInput}
-            onImageChange={onImageChange}
-            validate={[required]}
-            tips="You don't allow uploading a photo more than 5MB"
-          />
-          <p className="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-        </div>
+
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
             <Field
@@ -80,17 +87,7 @@ const ProfileForm = (props) => {
               min="9999"
             />
           </li>
-          <li className="list-group-item">
-            <Field
-              name="email"
-              type="email"
-              component={renderFormGroupField}
-              placeholder="Your email"
-              icon={IconEnvelop}
-              validate={[required, email]}
-              required={true}
-            />
-          </li>
+
           <li className="list-group-item">
             <Field
               name="location"
@@ -102,17 +99,7 @@ const ProfileForm = (props) => {
               required={true}
             />
           </li>
-          <li className="list-group-item">
-            <Field
-              name="dob"
-              type="date"
-              component={renderFormGroupField}
-              placeholder="Your birthdate"
-              icon={IconCalendarEvent}
-              validate={[required]}
-              required={true}
-            />
-          </li>
+
         </ul>
         <div className="card-body">
           <button
@@ -124,6 +111,7 @@ const ProfileForm = (props) => {
           </button>
         </div>
       </div>
+
     </form>
   );
 };

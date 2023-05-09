@@ -1,13 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import renderFormGroupField from "../../helpers/renderFormGroupField";
 import { required, maxLength20, minLength8 } from "../../helpers/validation";
 import { ReactComponent as IconShieldLock } from "bootstrap-icons/icons/shield-lock.svg";
 import { ReactComponent as IconKey } from "bootstrap-icons/icons/key.svg";
+import axios from 'axios';
 
 const ChangePasswordForm = (props) => {
-  const { handleSubmit, submitting, onSubmit, submitFailed } = props;
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+
+
+
+  const onSubmit = (formData) => {
+    const { currentPassword, password } = formData;
+    console.log("cu: " + currentPassword);
+    console.log("moi" + password);
+    // Lấy id của user từ session
+    axios.put(`http://localhost:8080/api/users/${user.id}/change-password`, {
+      "oldPassword": currentPassword,
+      "newPassword": password
+    })
+      .then(response => {
+        console.log(response.data);
+        // Xử lý thông báo thành công
+      })
+      .catch(error => {
+        console.log(error);
+        // Xử lý thông báo lỗi
+      });
+  };
+
+  // const onSubmit = (formData) => {
+  //   const { values } = formData;
+  //   const { name, mobileNo, location } = values;
+  //   // console.log("img" + formFile);
+  //   console.log("name " + name);
+  //   console.log("mobi " + mobileNo);
+  //   console.log("location " + location);
+
+
+
+  //   axios.put(`http://localhost:8080/api/users/${user.id}/edit-profile`, {
+  //     "name": name,
+  //     "mobileNo": mobileNo,
+  //     "location": location
+  //   })
+  //     .then(response => {
+  //       console.log(response.data);
+  //       // Xử lý thông báo thành công
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       // Xử lý thông báo lỗi
+  //     });
+  // };
+
+
+  const { handleSubmit, submitting, submitFailed } = props;
   return (
     <div className="card border-info">
       <h6 className="card-header bg-info text-white">
@@ -76,3 +127,10 @@ export default compose(
     form: "changepassword",
   })
 )(ChangePasswordForm);
+
+// export default compose(
+//   reduxForm({
+//     form: "changepassword",
+//     onSubmit
+//   })
+// )(ChangePasswordForm);
