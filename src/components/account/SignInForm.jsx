@@ -41,9 +41,9 @@ const SignInForm = (props) => {
 
       if (response.status === 200) {
         const user = response.data.user;
-        sessionStorage.setItem('user', JSON.stringify(user));
-        setIsLoggedIn(true);
-        sessionStorage.setItem("isLoggedIn", true);
+        localStorage.setItem('user', JSON.stringify(user));
+        // setIsLoggedIn(true);
+        // sessionStorage.setItem("isLoggedIn", true);
         window.location.href = '/';
       }
     } catch (error) {

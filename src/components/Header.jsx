@@ -14,12 +14,12 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
+    // const islogin = JSON.parse(localStorage.getItem('user'));
 
-    if (isLoggedInStorage === 'true') {
+    if (user != null) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -32,8 +32,8 @@ const Header = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    sessionStorage.removeItem("isLoggedIn");
-    sessionStorage.removeItem("user");
+    // setIsLoggedIn.removeItem("isLoggedIn");
+    setIsLoggedIn.removeItem("user");
   };
 
 

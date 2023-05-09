@@ -8,10 +8,13 @@ import axios from 'axios';
 const CardProductGrid = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const product = props.data;
-  const user = JSON.parse(sessionStorage.getItem('user'));
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
-    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedInStorage === 'true') {
+    // const islogin = JSON.parse(localStorage.getItem('user'));
+
+    if (user != null) {
       setIsLoggedIn(true);
     }
   }, []);

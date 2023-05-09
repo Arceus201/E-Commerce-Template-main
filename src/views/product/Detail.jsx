@@ -33,7 +33,7 @@ const ProductDetailView = () => {
   const { id } = useParams(); // lấy tham số id từ URL
   const [product, setProduct] = useState(null);
   const [valueproduct, setValue] = useState(1);
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ const ProductDetailView = () => {
   }, [id]);
 
   useEffect(() => {
-    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedInStorage === 'true') {
+    // const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
+    if (user === 'true') {
       setIsLoggedIn(true);
     }
 
