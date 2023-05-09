@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 const FilterCategory = (props) => {
   const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/categories/all");
@@ -11,6 +13,21 @@ const FilterCategory = (props) => {
       console.error(error);
     }
   };
+
+  const handleCategoryChange = (event) => {
+    const categoryId = event.target.value;
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
+    } else {
+      setSelectedCategories([...selectedCategories, categoryId]);
+    }
+  }
+
+  useEffect(() => {
+    props.onFilter({ category: selectedCategories });
+  }, [selectedCategories]);
+
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -32,9 +49,11 @@ const FilterCategory = (props) => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="flexCheckDefault1"
+                id={'category-${category.id}'}
+                value={category.id}
+                onChange={handleCategoryChange}
               />
-              <label className="form-check-label" htmlFor="flexCheckDefault1">
+              <label className="form-check-label" htmlFor={'category-${category.id}'}>
                 {category.name}  <span className="text-muted"></span>
               </label>
             </div>

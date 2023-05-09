@@ -30,7 +30,11 @@ class ProductListView extends Component {
     view: "list",
     pageLimit: 9,
     products: [],
+    selectedCategories: [],
+    selectedPrice: '',
+
   };
+
   // componentDidMount() {
   //   this.getProducts();
   // }
@@ -63,6 +67,40 @@ class ProductListView extends Component {
     this.setState({ view });
   };
 
+  handleFilter = (filter) => {
+    this.setState({ selectedCategories: filter.category });
+
+  }
+  handleFilter2 = (filter) => {
+    this.setState({ selectedPrice: filter.price });
+
+  }
+  //"1,2,3,4"
+  handleFilterSubmit = async () => {
+
+    try {
+      let { selectedCategories, selectedPrice } = this.state;
+
+
+      const selectedPrices = selectedPrice.split('-');
+
+      let _aaa = `http://localhost:8080/api/products/filter/combination?ids=${selectedCategories.join(',')}&start=${selectedPrices[0]}&end=${selectedPrices[1]}`;
+
+      const response = await axios.get(_aaa);
+      const products = response.data;
+      console.log(" response.data ", response.data);
+      this.setState({
+        products,
+        currentProducts: products.slice(0, 9),
+        totalItems: products.length,
+        totalPages: Math.ceil(products.length / 9),
+        currentPage: 1,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -82,8 +120,11 @@ class ProductListView extends Component {
         <div className="container-fluid mb-3">
           <div className="row">
             <div className="col-md-3">
-              <FilterCategory />
-              <FilterPrice />
+              <FilterCategory onFilter={this.handleFilter} />
+              <p>Selected categories: {this.state.selectedCategories}</p>
+
+              <FilterPrice onFilter={this.handleFilter2} />
+              <p>Selected Price: {this.state.selectedPrice}</p>
               <button
                 type="button"
                 style={{
@@ -93,7 +134,10 @@ class ProductListView extends Component {
                   border: 'none',
                   borderRadius: '5px',
                   marginLeft: '100px'
-                }}> Lọc
+                }}
+                onClick={this.handleFilterSubmit}>
+
+                Lọc
 
               </button>
             </div>

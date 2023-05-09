@@ -4,16 +4,38 @@ import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import numeral from 'numeral';
+import axios from 'axios';
 const CardProductGrid = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const product = props.data;
+  const user = JSON.parse(sessionStorage.getItem('user'));
   useEffect(() => {
     const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
     if (isLoggedInStorage === 'true') {
       setIsLoggedIn(true);
     }
   }, []);
-  const product = props.data;
+
+  const handleSubmit = async (productID, userID, event) => {
+    event.preventDefault();
+    try {
+      console.log("productID:" + productID);
+      console.log("userId:" + userID);
+
+      const response = await axios.post('http://localhost:8080/api/carts/add-item', {
+        "productId": productID,
+        "userId": userID,
+        "quantity": 1
+      });
+      if (response.status === 200) {
+        window.location.href = `/cart/${response.data.cartId}`;
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  //const product = props.data;
   return (
     <div className="card">
       <img src={product.image} style={{ width: '285px', height: '200px' }} className="card-img-top" alt="..." />
@@ -33,16 +55,25 @@ const CardProductGrid = (props) => {
 
         </div>
         <div className="btn-group  d-flex" role="group">
-          {product.quantity > 0 &&
+          {product.quantity > 0 && isLoggedIn ? (
             <>
               <Link
-                to={isLoggedIn ? "/cart" : "/account/signin"}
+                className="btn btn-sm btn-primary"
+                onClick={(event) => handleSubmit(product.id, user.id, event)}
+              >
+                <FontAwesomeIcon icon={faCartPlus} />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to={"/account/signin"}
                 className="btn btn-sm btn-primary"
               >
                 <FontAwesomeIcon icon={faCartPlus} />
               </Link>
             </>
-          }
+          )};
 
         </div>
       </div>

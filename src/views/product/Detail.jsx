@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import numeral from 'numeral';
+import axios from 'axios';
 import {
   faCartPlus,
   faHeart,
@@ -32,6 +33,8 @@ const ProductDetailView = () => {
   const { id } = useParams(); // lấy tham số id từ URL
   const [product, setProduct] = useState(null);
   const [valueproduct, setValue] = useState(1);
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/products/${id}`)
@@ -39,6 +42,35 @@ const ProductDetailView = () => {
       .then(data => setProduct(data))
       .catch(error => console.log(error));
   }, [id]);
+
+  useEffect(() => {
+    const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedInStorage === 'true') {
+      setIsLoggedIn(true);
+    }
+
+
+  }, []);
+
+  const handleSubmit = async (productID, userID, event) => {
+    event.preventDefault();
+    try {
+      console.log("productID:" + productID);
+      console.log("userId:" + userID);
+      console.log("userId:" + valueproduct);
+      const response = await axios.post('http://localhost:8080/api/carts/add-item', {
+        "productId": productID,
+        "userId": userID,
+        "quantity": valueproduct
+      });
+      if (response.status === 200) {
+        window.location.href = `/cart/${response.data.cartId}`;
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   // nếu product chưa được load, hiển thị thông báo đang loading
@@ -66,7 +98,6 @@ const ProductDetailView = () => {
       setValue(newValue);
     }
   };
-
 
 
 
@@ -121,30 +152,43 @@ const ProductDetailView = () => {
                   </div>
 
                 </div>
-
-                {product.quantity > 0 &&
+                {product.quantity > 0 && isLoggedIn ? (
                   <>
-                    <Link to="/cart" className="btn btn-sm btn-primary me-2">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-primary me-2"
-                        title="Add to cart"
-                      >
-                        <FontAwesomeIcon icon={faCartPlus} /> Add to cart
-                      </button>
-                    </Link>
+                    <>
+                      <Link to="/cart" className="btn btn-sm btn-primary me-2"
+                        onClick={(event) => handleSubmit(product.id, user.id, event)}>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary me-2"
+                          title="Add to cart"
+                        >
+                          <FontAwesomeIcon icon={faCartPlus} /> Add to cart
+                        </button>
+                      </Link>
 
-                    <Link to="/checkout" className="btn btn-sm btn-warning me-2">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-warning me-2"
-                        title="Buy now"
-                      >
-                        <FontAwesomeIcon icon={faShoppingCart} /> Buy now
-                      </button>
+                      <Link to="/checkout" className="btn btn-sm btn-warning me-2">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-warning me-2"
+                          title="Buy now"
+                        >
+                          <FontAwesomeIcon icon={faShoppingCart} /> Buy now
+                        </button>
+                      </Link>
+                    </>
+
+
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to={"/account/signin"}
+                      className="btn btn-sm btn-primary"
+                    >
+                      <FontAwesomeIcon icon={faCartPlus} />
                     </Link>
                   </>
-                }
+                )};
                 <br></br>
                 <br></br>
                 <p className="fw-bold mb-2 small">

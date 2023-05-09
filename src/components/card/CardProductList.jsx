@@ -9,16 +9,45 @@ import numeral from 'numeral';
 
 const CardProductList = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const product = props.data;
+  const user = JSON.parse(sessionStorage.getItem('user'));
+
+  // const [productid, setproductid] = useState(0);
+  // const [quatity,setquantity] = useState(1);
+  const handleSubmit = async (productID, userID, event) => {
+    event.preventDefault();
+    try {
+      console.log("productID:" + productID);
+      console.log("userId:" + userID);
+
+      const response = await axios.post('http://localhost:8080/api/carts/add-item', {
+        "productId": productID,
+        "userId": userID,
+        "quantity": 1
+      });
+      if (response.status === 200) {
+        console.log("cart_id:" + response.data.cartId);
+        window.location.href = `/cart/${response.data.cartId}`;
+
+
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
     if (isLoggedInStorage === 'true') {
       setIsLoggedIn(true);
     }
+
+
   }, []);
 
 
-  const product = props.data;
+
   return (
     <div className="card">
       <div className="row g-0">
@@ -53,16 +82,25 @@ const CardProductList = (props) => {
             <div className="btn-group d-flex" role="group">
 
 
-              {product.quantity > 0 &&
+              {product.quantity > 0 && isLoggedIn ? (
                 <>
                   <Link
-                    to={isLoggedIn ? "/cart" : "/account/signin"}
+                    className="btn btn-sm btn-primary"
+                    onClick={(event) => handleSubmit(product.id, user.id, event)}
+                  >
+                    <FontAwesomeIcon icon={faCartPlus} />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={"/account/signin"}
                     className="btn btn-sm btn-primary"
                   >
                     <FontAwesomeIcon icon={faCartPlus} />
                   </Link>
                 </>
-              }
+              )};
             </div>
           </div>
         </div>

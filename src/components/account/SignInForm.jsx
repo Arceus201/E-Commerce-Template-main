@@ -45,7 +45,6 @@ const SignInForm = (props) => {
         setIsLoggedIn(true);
         sessionStorage.setItem("isLoggedIn", true);
         window.location.href = '/';
-
       }
     } catch (error) {
       console.log(error);
