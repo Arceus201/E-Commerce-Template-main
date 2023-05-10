@@ -27,8 +27,12 @@ const CardProductList = (props) => {
       });
       if (response.status === 200) {
         console.log("cart_id:" + response.data.cartId);
-        window.location.href = `/cart/${response.data.cartId}`;
 
+        // const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
+        // if (cartidstatus === null) {
+        //   localStorage.setItem('cartid', JSON.stringify(response.data.cartId));
+        // }
+        window.location.href = `/cart/${response.data.cartId}`;
 
 
       }

@@ -28,9 +28,15 @@ const CardProductGrid = (props) => {
       const response = await axios.post('http://localhost:8080/api/carts/add-item', {
         "productId": productID,
         "userId": userID,
-        "quantity": 1
+        "quantity": null
       });
       if (response.status === 200) {
+
+
+        // const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
+        // if (cartidstatus === null) {
+        //   localStorage.setItem('cartid', JSON.stringify(response.data.cartId));
+        // }
         window.location.href = `/cart/${response.data.cartId}`;
 
       }

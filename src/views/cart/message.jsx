@@ -45,20 +45,36 @@ function PaymentSuccess() {
             console.log(vnp_TxnRef.split('.')[0].split(',').map(Number));
             console.log("tong tien  " + vnp_Amount / 100);
 
-            const firstTwoValues = vnp_TxnRef.split(',')[0] + ',' + vnp_TxnRef.split(',')[1]; // Lấy 2 giá trị đầu tiên
-            const result = firstTwoValues.split(',').map(Number); // Convert các giá trị sang number
-            console.log(result); // [2, 1]
+            // const firstTwoValues = vnp_TxnRef.split(',')[0] + ',' + vnp_TxnRef.split(',')[1]; // Lấy 2 giá trị đầu tiên
+            const result = vnp_TxnRef.split('.')[0].split(',').map(Number); // Convert các giá trị sang number
+            // for (let i = 0; i < result.length; i++) {
+            //     console.log(result[i]);
+            // }
+
+            // console.log(result); // [2, 1]
 
             axios.post('http://localhost:8080/api/orders/order', {
                 "userId": user.id,
                 "cartId": vnp_TxnRef.split('.')[2],
                 "total_price": vnp_Amount / 100,
                 "vnpayCode": vnp_TransactionNo,
-                "productIds": vnp_TxnRef.split('.')[0].split(',').map(Number)
+                "productIds": result
 
             }).then(response => {
                 // Xử lý kết quả trả về từ API
                 console.log(response.status);
+                if (response.status === 200) {
+                    // axios.delete('https://example.com/api/orders', {
+                    //     "productIds": result,
+                    //     "cartId": vnp_TxnRef.split('.')[2]
+                    // }).then(response => {
+                    //     // Xử lý kết quả trả về từ API
+                    //     console.log("xóa thành công");
+                    // })
+                    //     .catch(error => {
+                    //         console.error(error);
+                    //     });
+                }
             })
                 .catch(error => {
                     console.error(error);

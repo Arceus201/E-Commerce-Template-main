@@ -15,6 +15,13 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  const [cartid, setcartid] = useState(-1);
+
+  const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
+  if (cartidstatus != null) {
+    setcartid(cartidstatus);
+  }
+
 
   useEffect(() => {
     // const islogin = JSON.parse(localStorage.getItem('user'));
@@ -33,6 +40,7 @@ const Header = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     // setIsLoggedIn.removeItem("isLoggedIn");
+    localStorage.removeItem("user")
     setIsLoggedIn.removeItem("user");
   };
 
@@ -64,12 +72,14 @@ const Header = () => {
                 <>
 
                   <div className="position-relative d-inline me-3">
-                    <Link to="/cart" className="btn btn-primary">
+
+                    <Link to={cartid === -1 ? "/cart/-1" : `/cart/${cartid}`} className="btn btn-primary">
                       <IconCart3 className="i-va" />
                       <div className="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle">
                         {/* 2 */}
                       </div>
                     </Link>
+
                   </div>
 
                   <div className="btn-group">

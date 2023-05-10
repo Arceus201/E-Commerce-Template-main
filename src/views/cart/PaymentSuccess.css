@@ -6,6 +6,20 @@
     height: 100px;
    
   }
+
+  .orders {
+    margin-left: 100px;
+    margin-top: 50px;
+    height: 500px;
+   
+  }
+
+
+  .orderlist {
+    margin-top: 20px;
+    height: 500px;
+   
+  }
   .payment-Fail {
     font-size: 24px;
     color: rgb(245, 65, 11);
