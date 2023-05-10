@@ -16,12 +16,12 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const [cartid, setcartid] = useState(-1);
-
-  const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
-  if (cartidstatus != null) {
-    setcartid(cartidstatus);
-  }
-
+  useEffect(() => {
+    const cartidstatus = JSON.parse(localStorage.getItem('codecart'));
+    if (cartidstatus != null) {
+      setcartid(cartidstatus);
+    }
+  }, []);
 
   useEffect(() => {
     // const islogin = JSON.parse(localStorage.getItem('user'));
@@ -41,6 +41,7 @@ const Header = () => {
     setIsLoggedIn(false);
     // setIsLoggedIn.removeItem("isLoggedIn");
     localStorage.removeItem("user")
+    localStorage.removeItem("codecart")
     setIsLoggedIn.removeItem("user");
   };
 

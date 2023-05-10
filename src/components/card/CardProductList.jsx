@@ -14,6 +14,7 @@ const CardProductList = (props) => {
 
   // const [productid, setproductid] = useState(0);
   // const [quatity,setquantity] = useState(1);
+
   const handleSubmit = async (productID, userID, event) => {
     event.preventDefault();
     try {
@@ -25,16 +26,11 @@ const CardProductList = (props) => {
         "userId": userID,
         "quantity": 1
       });
+
       if (response.status === 200) {
-        console.log("cart_id:" + response.data.cartId);
-
-        // const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
-        // if (cartidstatus === null) {
-        //   localStorage.setItem('cartid', JSON.stringify(response.data.cartId));
-        // }
+        let x = response.data.cartId;
+        localStorage.setItem('codecart', JSON.stringify(x));
         window.location.href = `/cart/${response.data.cartId}`;
-
-
       }
     } catch (error) {
       console.log(error);

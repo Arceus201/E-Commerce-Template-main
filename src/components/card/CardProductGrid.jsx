@@ -28,15 +28,13 @@ const CardProductGrid = (props) => {
       const response = await axios.post('http://localhost:8080/api/carts/add-item', {
         "productId": productID,
         "userId": userID,
-        "quantity": null
+        "quantity": 1
       });
       if (response.status === 200) {
 
 
-        // const cartidstatus = JSON.parse(localStorage.getItem('cartid'));
-        // if (cartidstatus === null) {
-        //   localStorage.setItem('cartid', JSON.stringify(response.data.cartId));
-        // }
+        let x = response.data.cartId;
+        localStorage.setItem('codecart', JSON.stringify(x));
         window.location.href = `/cart/${response.data.cartId}`;
 
       }
