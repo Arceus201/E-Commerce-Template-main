@@ -29,33 +29,9 @@ const ProfileForm = (props) => {
     // imagePreview,
   } = props;
   const user = JSON.parse(localStorage.getItem('user'));
-<<<<<<< Updated upstream
-
-
-  const onSubmit = (formData) => {
-
-    console.log("name " + formData.name);
-    console.log("mobi " + formData.mobileNo);
-    console.log("location " + formData.location);
-    // try {
-    //   await axios.put(`http://localhost:8080/api/users/${user.id}/edit-profile`, {
-    //     "name": formData.name,
-    //     "mobileNo": formData.mobileNo,
-    //     "location": formData.location
-    //   });
-
-    //   // Handle success
-    //   alert("Profile updated successfully!");
-    // } catch (error) {
-    //   // Handle error
-    //   alert("Failed to update profile. Please try again later.");
-    // }
-  }
-=======
   const userId = user.id;
   const onSubmit = async (e) => {
     e.preventDefault();
->>>>>>> Stashed changes
 
     const body = {
       full_name: e.target.elements.name.value,
