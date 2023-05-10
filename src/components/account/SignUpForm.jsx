@@ -43,9 +43,11 @@ const SignUpForm = ({ history }) => {
       });
 
       if (response.status === 200) {
+        window.alert("Đăng ký thành công");
         window.location.href = '/account/signin';
       }
     } catch (error) {
+      window.alert("Đăng ký thaatss bại");
       console.log(error);
     }
   };

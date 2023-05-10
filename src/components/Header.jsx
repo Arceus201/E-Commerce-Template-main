@@ -43,6 +43,7 @@ const Header = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("codecart")
     setIsLoggedIn.removeItem("user");
+    window.location.href = `/`;
   };
 
 
