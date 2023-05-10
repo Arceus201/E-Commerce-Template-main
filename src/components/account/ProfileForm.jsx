@@ -1,9 +1,9 @@
 import React from "react";
+import axios from 'axios';
 import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import renderFormGroupField from "../../helpers/renderFormGroupField";
 import renderFormFileInput from "../../helpers/renderFormFileInput";
-import axios from 'axios';
 import {
   required,
   maxLengthMobileNo,
@@ -23,11 +23,13 @@ const ProfileForm = (props) => {
   const {
     handleSubmit,
     submitting,
+    // onSubmit,
     submitFailed,
     // onImageChange,
     // imagePreview,
   } = props;
   const user = JSON.parse(localStorage.getItem('user'));
+<<<<<<< Updated upstream
 
 
   const onSubmit = (formData) => {
@@ -49,11 +51,30 @@ const ProfileForm = (props) => {
     //   alert("Failed to update profile. Please try again later.");
     // }
   }
+=======
+  const userId = user.id;
+  const onSubmit = async (e) => {
+    e.preventDefault();
+>>>>>>> Stashed changes
 
+    const body = {
+      full_name: e.target.elements.name.value,
+      phone: e.target.elements.mobileNo.value,
+      address: e.target.elements.location.value,
+      avatar: null
+    };
 
+    try {
+      const response = axios.put(`http://localhost:8080/api/users/${userId}/edit-profile`, body);
+      console.log(response.data); // Handle success response
+      alert('Profile updated successfully');
+    } catch (error) {
+      console.error(error.response.data); // Handle error response
+      alert('Profile update failed');    }
+  };
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
       noValidate
     >
@@ -61,7 +82,6 @@ const ProfileForm = (props) => {
         <h6 className="card-header">
           <IconPersonSquareFill /> Profile Detail
         </h6>
-
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
             <Field
@@ -87,7 +107,7 @@ const ProfileForm = (props) => {
               min="9999"
             />
           </li>
-
+         
           <li className="list-group-item">
             <Field
               name="location"
@@ -99,7 +119,7 @@ const ProfileForm = (props) => {
               required={true}
             />
           </li>
-
+          
         </ul>
         <div className="card-body">
           <button
@@ -111,7 +131,6 @@ const ProfileForm = (props) => {
           </button>
         </div>
       </div>
-
     </form>
   );
 };
