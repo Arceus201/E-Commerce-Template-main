@@ -32,6 +32,11 @@ const SupportView = lazy(() => import("./views/pages/Support"));
 const BlogView = lazy(() => import("./views/blog/Blog"));
 const BlogDetailView = lazy(() => import("./views/blog/Detail"));
 
+
+const CRUD_productView = lazy(() => import("./admin/CRUD_product"));
+const CU_productView = lazy(() => import("./admin/CU_product"));
+const CRUD_categoryView = lazy(() => import("./admin/CRUD_category"));
+
 function App() {
   return (
     <BrowserRouter>
@@ -55,7 +60,7 @@ function App() {
             <Route exact path="/account/profile" element={<MyProfileView />} />
             <Route exact path="/account/orders" element={<OrdersView />} />
 
-            <Route exact path="/account/orders/:id" element={<OrderDetalView />} />
+            <Route exact path="/orderItem/:id" element={<OrderDetalView />} />
             <Route exact path="/account/wishlist" element={<WishlistView />} />
             <Route
               exact
@@ -76,6 +81,11 @@ function App() {
             <Route exact path="/blog/detail" element={<BlogDetailView />} />
             <Route exact path="/500" element={<InternalServerErrorView />} />
             <Route path="*" element={<NotFoundView />} />
+
+            <Route exact path="/admin/crud-product" element={<CRUD_productView />} />
+            <Route exact path="/admin/cu-product" element={<CU_productView />} />
+            <Route exact path="/admin/crud-category" element={<CRUD_categoryView />} />
+
           </Routes>
         </Suspense>
         <Footer />

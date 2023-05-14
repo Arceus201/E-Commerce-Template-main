@@ -12,24 +12,35 @@ import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user'));
+const Header = (props) => {
+  //const [isLoggedIn, setIsLoggedIn] = useState();
+  let user = JSON.parse(localStorage.getItem('user'));
   const [cartid, setcartid] = useState(-1);
+
   useEffect(() => {
     const cartidstatus = JSON.parse(localStorage.getItem('codecart'));
     if (cartidstatus != null) {
       setcartid(cartidstatus);
     }
-  }, []);
+  }, [cartid]);
+
+  //  console.log("user" + user.full_name);
 
   useEffect(() => {
     // const islogin = JSON.parse(localStorage.getItem('user'));
 
     if (user != null) {
-      setIsLoggedIn(true);
+      console.log("user" + user.full_name);
+
     }
-  }, []);
+
+  }, [user]);
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  }
 
 
 
@@ -38,13 +49,14 @@ const Header = () => {
 
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
     // setIsLoggedIn.removeItem("isLoggedIn");
     localStorage.removeItem("user")
     localStorage.removeItem("codecart")
-    setIsLoggedIn.removeItem("user");
+    //  setIsLoggedIn.removeItem("user");
     window.location.href = `/`;
   };
+
 
 
 
@@ -64,15 +76,14 @@ const Header = () => {
               </Link>
             </div>
             <div className="col-md-5">
-              <Search />
+              <h2>Electronics Store</h2>
             </div>
             <div className="col-md-4">
 
 
               {/* <div className="btn-group"> */}
-              {isLoggedIn ? (
-                <>
-
+              {user != null ? (
+                <div>
                   <div className="position-relative d-inline me-3">
 
                     <Link to={cartid === -1 ? "/cart/-1" : `/cart/${cartid}`} className="btn btn-primary">
@@ -88,14 +99,14 @@ const Header = () => {
                     <button
                       type="button"
                       className="btn btn-secondary rounded-circle border me-3"
-                      data-toggle="dropdown"
-                      aria-expanded="false"
+                      aria-expanded="true"
                       aria-label="Profile"
                       data-bs-toggle="dropdown"
+                      onClick={toggleDropdown}
                     >
                       <FontAwesomeIcon icon={faUser} className="text-light" />
                     </button>
-                    <ul className="dropdown-menu">
+                    <ul className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
                       <li>
                         <Link className="dropdown-item" to="/account/profile">
                           <IconPersonBadgeFill /> Trang cá nhân
@@ -123,9 +134,9 @@ const Header = () => {
                       <span >{user.full_name}</span>
                     </div>
                   </div>
+                </div>
 
 
-                </>
               ) : (
                 <li className="btn-group">
                   <button

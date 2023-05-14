@@ -6,7 +6,7 @@ import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import numeral from 'numeral';
 import axios from 'axios';
 const CardProductGrid = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const product = props.data;
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -15,9 +15,9 @@ const CardProductGrid = (props) => {
     // const islogin = JSON.parse(localStorage.getItem('user'));
 
     if (user != null) {
-      setIsLoggedIn(true);
+      console.log("user:" + user.full_name);
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (productID, userID, event) => {
     event.preventDefault();
@@ -62,7 +62,7 @@ const CardProductGrid = (props) => {
 
         </div>
         <div className="btn-group  d-flex" role="group">
-          {product.quantity > 0 && isLoggedIn ? (
+          {product.quantity > 0 && user != null ? (
             <>
               <Link
                 className="btn btn-sm btn-primary"

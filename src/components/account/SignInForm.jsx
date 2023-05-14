@@ -3,6 +3,9 @@ import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import renderFormGroupField from "../../helpers/renderFormGroupField";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   required,
   maxLength20,
@@ -27,7 +30,7 @@ const SignInForm = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   const handleSubmit = async (event) => {
@@ -40,13 +43,18 @@ const SignInForm = (props) => {
       });
 
       if (response.status === 200) {
+        toast.success('Đã lưu thành công!', {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
         const user = response.data.user;
         localStorage.setItem('user', JSON.stringify(user));
-        // setIsLoggedIn(true);
-        // sessionStorage.setItem("isLoggedIn", true);
+
         window.location.href = '/';
       }
     } catch (error) {
+      toast.success('Đăng nhập thất bại !', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
       console.log(error);
     }
   };
@@ -108,17 +116,17 @@ const SignInForm = (props) => {
       <div className="clearfix"></div>
       <hr></hr>
       <div className="row">
-        <div className="col- text-center">
+        {/* <div className="col- text-center">
           <p className="text-muted small">Or you can join with</p>
-        </div>
+        </div> */}
         <div className="col- text-center">
 
-          <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
+          {/* <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
             <FontAwesomeIcon icon={faFacebookF} className="mx-1" />
           </Link>
           <Link to="/" className="btn btn-light text-white me-3 bg-google">
             <FontAwesomeIcon icon={faGoogle} className="mx-1" />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </form>

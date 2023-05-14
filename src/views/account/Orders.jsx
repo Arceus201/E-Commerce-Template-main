@@ -60,7 +60,8 @@ const OrdersView = (props) => {
                           <span className="border bg-white rounded-right px-2">
                             {numeral(order.total_price).format('0,0.00')} VNĐ
                           </span>
-                          <Link to="/account/orders/${order.id}" className="border bg-white rounded-right px-2">
+                          <Link to={`/orderItem/${order.id}`} className="text-decoration-none">
+
                             detail
                           </Link>
                         </div>

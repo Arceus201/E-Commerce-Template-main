@@ -124,19 +124,19 @@ const SignUpForm = ({ history }) => {
         <div className="clearfix"></div>
         <hr></hr>
         <div className="row">
-          <div className="col- text-center">
+          {/* <div className="col- text-center">
             <p className="text-muted small">Or you can join with</p>
-          </div>
+          </div> */}
           <div className="col- text-center">
             {/* <Link to="/" className="btn btn-light text-white bg-twitter me-3">
             <FontAwesomeIcon icon={faTwitter} />
           </Link> */}
-            <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
+            {/* <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
               <FontAwesomeIcon icon={faFacebookF} className="mx-1" />
             </Link>
             <Link to="/" className="btn btn-light text-white me-3 bg-google">
               <FontAwesomeIcon icon={faGoogle} className="mx-1" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </form>

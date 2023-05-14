@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "bootstrap";
 import axios from "axios";
+import Search from "../../components/Search";
 const Paging = lazy(() => import("../../components/Paging"));
 const Breadcrumb = lazy(() => import("../../components/Breadcrumb"));
 const FilterCategory = lazy(() => import("../../components/filter/Category"));
@@ -28,7 +29,7 @@ class ProductListView extends Component {
     totalPages: null,
     totalItems: 0,
     view: "list",
-    pageLimit: 9,
+    pageLimit: 100,
     products: [],
     selectedCategories: [],
     selectedPrice: '',
@@ -46,9 +47,9 @@ class ProductListView extends Component {
       const products = await response.json();
       this.setState({
         products,
-        currentProducts: products.slice(0, 9),
+        currentProducts: products.slice(0, 100),
         totalItems: products.length,
-        totalPages: Math.ceil(products.length / 9),
+        totalPages: Math.ceil(products.length / 100),
         currentPage: 1,
       });
     } catch (error) {
@@ -91,9 +92,9 @@ class ProductListView extends Component {
       console.log(" response.data ", response.data);
       this.setState({
         products,
-        currentProducts: products.slice(0, 9),
+        currentProducts: products.slice(0, 100),
         totalItems: products.length,
-        totalPages: Math.ceil(products.length / 9),
+        totalPages: Math.ceil(products.length / 100),
         currentPage: 1,
       });
     } catch (error) {
@@ -101,10 +102,21 @@ class ProductListView extends Component {
     }
   }
 
+  handleSearch = (searchResults) => {
+    const products = searchResults;
+    this.setState({
+      products,
+      currentProducts: products.slice(0, 100),
+      totalItems: products.length,
+      totalPages: Math.ceil(products.length / 100),
+      currentPage: 1,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
-        <div
+        {/* <div
           className="p-5 bg-primary bs-cover"
           style={{
             backgroundImage: "url(../../images/banner/50-Banner.webp)",
@@ -115,16 +127,16 @@ class ProductListView extends Component {
               Electron-Category
             </span>
           </div>
-        </div>
+        </div> */}
         <Breadcrumb />
         <div className="container-fluid mb-3">
           <div className="row">
             <div className="col-md-3">
               <FilterCategory onFilter={this.handleFilter} />
-              <p>Selected categories: {this.state.selectedCategories}</p>
+              {/* <p>Selected categories: {this.state.selectedCategories}</p> */}
 
               <FilterPrice onFilter={this.handleFilter2} />
-              <p>Selected Price: {this.state.selectedPrice}</p>
+              {/* <p>Selected Price: {this.state.selectedPrice}</p> */}
               <button
                 type="button"
                 style={{
@@ -142,11 +154,15 @@ class ProductListView extends Component {
               </button>
             </div>
             <div className="col-md-9">
+              <div style={{ justifyContent: "center", width: "80%" }} >
+                <Search onSearch={this.handleSearch} />
+              </div>
+              <br></br>
               <div className="row">
                 <div className="col-7">
                   <span className="align-middle fw-bold">
                     {this.state.totalItems} results for{" "}
-                    <span className="text-warning">Category</span>
+                    <span className="text-warning">Product</span>
                   </span>
                 </div>
                 <div className="col-5 d-flex justify-content-end">

@@ -17,7 +17,7 @@ const ChangePasswordForm = (props) => {
     const { currentPassword, password } = formData;
     console.log("cu: " + currentPassword);
     console.log("moi" + password);
-    // Lấy id của user từ session
+
     axios.put(`http://localhost:8080/api/users/${user.id}/change-password`, {
       "oldPassword": currentPassword,
       "newPassword": password

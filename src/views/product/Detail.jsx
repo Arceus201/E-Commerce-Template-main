@@ -34,7 +34,7 @@ const ProductDetailView = () => {
   const [product, setProduct] = useState(null);
   const [valueproduct, setValue] = useState(1);
   const user = JSON.parse(localStorage.getItem('user'));
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/products/${id}`)
@@ -44,13 +44,12 @@ const ProductDetailView = () => {
   }, [id]);
 
   useEffect(() => {
-    // const isLoggedInStorage = sessionStorage.getItem('isLoggedIn');
-    if (user === 'true') {
-      setIsLoggedIn(true);
+    // const islogin = JSON.parse(localStorage.getItem('user'));
+
+    if (user != null) {
+      console.log("user:" + user.full_name);
     }
-
-
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (productID, userID, event) => {
     event.preventDefault();
@@ -154,7 +153,7 @@ const ProductDetailView = () => {
                   </div>
 
                 </div>
-                {product.quantity > 0 && isLoggedIn ? (
+                {product.quantity > 0 && user != null ? (
                   <>
                     <>
                       <Link to="/cart" className="btn btn-sm btn-primary me-2"

@@ -5,6 +5,9 @@ import axios from "axios";
 import numeral from 'numeral';
 function PaymentSuccess() {
     const user = JSON.parse(localStorage.getItem('user'));
+    // const user = {
+    //     id: 1
+    // }
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [orderstatus, setoderstatus] = useState(false);
 

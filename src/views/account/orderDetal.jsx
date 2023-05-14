@@ -14,105 +14,23 @@ const CouponApplyForm = lazy(() =>
     import("../../components/others/CouponApplyForm")
 );
 
-const OrderDetalView = () => {
+const OrderDetalView = (props) => {
 
-    const [totalPrice, setTotalPrice] = useState(0);
+
     const { id } = useParams();
-    const [Carts, setCarts] = useState([]);
-    const [ipclient, setipclient] = useState('');
-    const [currentTime, setCurrentTime] = useState(new Date());
+    const [OrderItem, setOrderItem] = useState([]);
 
-
-
-    const handleCheckBoxChange = (event, cartId) => {
-        const updatedCarts = Carts.map((cart) => {
-            if (cart.id === cartId) {
-                cart.isChecked = event.target.checked;
-            }
-            return cart;
-        });
-        setCarts(updatedCarts);
-
-        if (ipclient == "") {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => setipclient(data.ip))
-                .catch(error => console.error(error));
-        }
-
-    };
     useEffect(() => {
         console.log("cartid" + id)
-        fetch(`http://localhost:8080/api/carts/${id}/items`)
+        fetch(`http://localhost:8080/api/orders/${id}/order-items`)
             .then(res => res.json())
-            .then(data => setCarts(data))
+            .then(data => setOrderItem(data))
             .catch(error => console.log(error));
     }, [id]);
 
-    useEffect(() => {
-        let total = 0;
-        Carts.forEach((cart) => {
-            if (cart.isChecked) {
-                total += cart.product.price * cart.quantity;
-            }
-        });
-        setTotalPrice(total);
-    }, [Carts]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
 
 
-    const handleMakePurchase = (event) => {
-        const checkedCarts = Carts.filter(cart => cart.isChecked);
-        const cartIds = checkedCarts.map(cart => cart.id);
-        const code = cartIds.join(',') + "." + currentTime.toLocaleTimeString() + "." + id;
-        console.log("code:" + code);
-        axios.get('http://localhost:8080/api/payments/create', {
-            params: {
-                'code': code,
-                'total': totalPrice,
-                'bankCode1': '',
-                'ipAddress': ipclient
-            }
-        })
-            .then(response => {
-                // Xử lý kết quả trả về từ API
-                console.log("Link" + response.data);
-                window.location.href = response.data;
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
-        console.log(ipclient)
-        console.log("tổng tiền" + totalPrice);
-    }
-
-
-    const handleDeleteCart = (event, cartId) => {
-        axios.delete(`http://localhost:8080/api/carts/${cartId}`)
-            .then(response => {
-                console.log(response.data);
-                // nếu xóa cart thành công, ta cập nhật lại danh sách các carts và tính lại tổng giá tiền
-                const updatedCarts = Carts.filter(cart => cart.id !== cartId);
-                setCarts(updatedCarts);
-                let total = 0;
-                updatedCarts.forEach(cart => {
-                    if (cart.isChecked) {
-                        total += cart.product.price * cart.quantity;
-                    }
-                });
-                setTotalPrice(total);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 
     return (
         <React.Fragment>
@@ -140,7 +58,7 @@ const OrderDetalView = () => {
                                             <th scope="col" className="text-end" width={130}></th>
                                         </tr>
                                     </thead>
-                                    {Carts.map((cart) => (
+                                    {OrderItem.map((order) => (
                                         <tbody>
                                             <tr>
 
@@ -148,17 +66,17 @@ const OrderDetalView = () => {
                                                     <div className="price">
 
                                                         <Link
-                                                            to={`/product/detail/${cart.product.id}`}
+                                                            to={`/product/detail/${order.product.id}`}
                                                             className="text-decoration-none"
                                                         >
-                                                            {cart.product.name}
+                                                            {order.product.name}
                                                         </Link>
 
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-3 d-none d-md-block">
                                                             <img
-                                                                src={cart.product.image}
+                                                                src={order.product.image}
                                                                 width="80"
                                                                 alt="..."
                                                             />
@@ -167,33 +85,18 @@ const OrderDetalView = () => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <var className="price">{cart.quantity}</var>
+                                                    <var className="price">{order.quantity}</var>
                                                 </td>
                                                 <td>
 
-                                                    <var className="price">{numeral(cart.product.price * cart.quantity).format('0,0.00')}</var>
+                                                    <var className="price">{numeral(order.product.price * order.quantity).format('0,0.00')}</var>
                                                 </td>
                                                 <td>
 
-                                                    <var className="price">{numeral(cart.product.price * cart.quantity).format('0,0.00')}</var>
+                                                    <var className="price">{numeral(order.product.price * order.quantity).format('0,0.00')}</var>
                                                 </td>
-                                                <td className="text-end">
-                                                    <button className="btn btn-sm btn-outline-danger"
-                                                        onClick={(event) => handleDeleteCart(event, cart.id)}>
 
-                                                        <IconTrash className="i-va" />
-                                                    </button>
-                                                </td>
-                                                <td className="text-end">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="flexCheckDefault1"
-                                                        style={{ transform: "scale(1.5)" }}
-                                                        onChange={(event) => handleCheckBoxChange(event, cart.id)}
-                                                        checked={cart.isChecked}>
-                                                    </input>
-                                                </td>
+
                                             </tr>
 
                                         </tbody>
@@ -209,24 +112,7 @@ const OrderDetalView = () => {
                         </div>
 
                     </div>
-                    <div className="col-md-3">
 
-                        <div className="card">
-                            <div className="card-body">
-                                <dl className="row border-bottom">
-                                    <dt className="col-6">Total price:</dt>
-                                    <dd className="col-6 text-end" >{numeral(totalPrice).format('0,0.00')} VNĐ</dd>
-                                </dl>
-                                <hr />
-                                <Link
-                                    className="btn btn-secondary"
-                                    onClick={() => handleMakePurchase()}>
-                                    Make Purchase
-                                    <IconChevronRight className="i-va" />
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </React.Fragment >
