@@ -11,7 +11,7 @@ import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.
 import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
+import axios from "axios";
 const Header = (props) => {
   //const [isLoggedIn, setIsLoggedIn] = useState();
   let user = JSON.parse(localStorage.getItem('user'));
@@ -19,10 +19,19 @@ const Header = (props) => {
   const [cartid, setcartid] = useState(-1);
 
   useEffect(() => {
-    const cartidstatus = JSON.parse(localStorage.getItem('codecart'));
-    if (cartidstatus != null) {
-      setcartid(cartidstatus);
+    if (user != null) {
+      fetch(`http://localhost:8080/api/carts/${user.id}`)
+        .then(response => response.json())
+        .then(data => {
+          setcartid(data.id);
+          console.log(data);
+        })
+        .catch(error => {
+          // Handle any errors that occur during the request
+          console.error(error);
+        });
     }
+
   }, [cartid]);
 
 
