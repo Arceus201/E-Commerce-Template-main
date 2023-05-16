@@ -21,6 +21,7 @@ const CartView = () => {
   const [Carts, setCarts] = useState([]);
   const [ipclient, setipclient] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [valueproduct, setValue] = useState(1);
 
 
 
@@ -114,6 +115,25 @@ const CartView = () => {
       });
   }
 
+  // const handleMinusClick = (product) => {
+  //   if (valueproduct > 1) {
+  //     setValue(valueproduct - 1);
+  //   }
+  // };
+
+  // const handlePlusClick = (product) => {
+  //   if (valueproduct < product.quantity) {
+  //     setValue(valueproduct + 1);
+  //   }
+  // };
+
+  // const handleChange = (event, product) => {
+  //   const newValue = parseInt(event.target.value, 10);
+  //   if (newValue >= 1 && newValue <= product.quantity) {
+  //     setValue(newValue);
+  //   }
+  // };
+
   return (
     <React.Fragment>
       <div className="bg-secondary border-top p-4 text-white mb-3">
@@ -167,6 +187,28 @@ const CartView = () => {
                           </div>
                         </td>
                         <td>
+                          {/* <div className="input-group input-group-sm mw-140">
+                            <button
+                              className="btn btn-primary text-white"
+                              type="button"
+                              onClick={handleMinusClick(cart.product)}
+                            >
+                              <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={valueproduct(cart.product)}
+                              onChange={handleChange(cart.product)}
+                            />
+                            <button
+                              className="btn btn-primary text-white"
+                              type="button"
+                              onClick={handlePlusClick(cart.product)}
+                            >
+                              <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                          </div> */}
                           <var className="price">{cart.quantity}</var>
                         </td>
                         <td>

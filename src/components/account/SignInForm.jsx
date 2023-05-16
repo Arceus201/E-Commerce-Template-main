@@ -47,7 +47,13 @@ const SignInForm = (props) => {
           position: toast.POSITION.BOTTOM_RIGHT
         });
         const user = response.data.user;
-        localStorage.setItem('user', JSON.stringify(user));
+
+        if (user.role === "USER") {
+          localStorage.setItem('user', JSON.stringify(user));
+        }
+        else if (user.role === "ADMIN") {
+          localStorage.setItem('admin', JSON.stringify(user));
+        }
 
         window.location.href = '/';
       }

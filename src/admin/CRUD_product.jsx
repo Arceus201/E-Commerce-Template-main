@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./admincss/admin.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import numeral from 'numeral';
+import Search from "../components/Search";
 
 const CRUD_productView = () => {
-    const [products, setProducts] = useState([
-        { id: 1, name: "Product 1", category: "TV", image: "https://via.placeholder.com/100", quantity: 10, price: 100 },
-        { id: 2, name: "Product 2", category: "TV", image: "https://via.placeholder.com/100", quantity: 20, price: 200 },
-        { id: 3, name: "Product 3", category: "TV", image: "https://via.placeholder.com/100", quantity: 30, price: 300 }
-    ]);
+    const [products, setProducts] = useState([]);
     const [formValues, setFormValues] = useState({
         id: "",
         name: "",
-        category: "",
+        // category: "",
         image: "",
         quantity: "",
         price: ""
     });
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get("http://localhost:8080/api/products/all");
+            setProducts(result.data);
+        };
+        fetchData();
+    });
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -27,7 +34,7 @@ const CRUD_productView = () => {
         const newProduct = {
             id: Date.now(),
             name: formValues.name,
-            category: formValues.category,
+            // category: formValues.category,
             image: formValues.image,
             quantity: formValues.quantity,
             price: formValues.price
@@ -36,7 +43,7 @@ const CRUD_productView = () => {
         setFormValues({
             id: "",
             name: "",
-            category: "",
+            // category: "",
             image: "",
             quantity: "",
             price: ""
@@ -55,7 +62,7 @@ const CRUD_productView = () => {
         setFormValues({
             id: "",
             name: "",
-            category: "",
+            // category: "",
             image: "",
             quantity: "",
             price: ""
@@ -73,19 +80,20 @@ const CRUD_productView = () => {
                 <button
                     type="button"
                     className="btn btn-primary mb-3"
-                // data-bs-toggle="modal"
-                // data-bs-target="#productModal"
                 >
                     Add New
                 </button>
             </Link>
+            <div style={{ justifyContent: "center", width: "80%" }} >
+                <Search></Search>
+            </div>
             <table className="table">
                 <thead>
                     <tr>
                         <th>Image</th>
 
                         <th>Name</th>
-                        <th>Category</th>
+                        {/* <th>Category</th> */}
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Action</th>
@@ -95,13 +103,13 @@ const CRUD_productView = () => {
                     {products.map((product) => (
                         <tr key={product.id}>
                             <td>
-                                <img src={product.image} alt={product.name} />
+                                <img src={product.image} alt={product.name} style={{ width: '200px', height: '150px' }} />
                             </td>
 
                             <td>{product.name}</td>
-                            <td>{product.category}</td>
+                            {/* <td>{product.category_id}</td> */}
                             <td>{product.quantity}</td>
-                            <td>{product.price}</td>
+                            <td>{numeral(product.price).format('0,0')}</td>
                             <td>
                                 <Link to={'/admin/cu-product'}>
                                     <button

@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./admincss/crud_category.css";
+import axios from "axios";
 const CRUD_categoryView = () => {
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (name.trim() !== '') {
-            setCategories([...categories, { id: categories.length + 1, name }]);
-            setName('');
+
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/categories/all");
+            setCategories(response.data);
+            console.log("size" + categories.size());
+
+        } catch (error) {
+            console.error(error);
         }
     };
+    useEffect(() => {
+        fetchCategories();
+    });
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     if (name.trim() !== '') {
+    //         setCategories([...categories, { id: categories.length + 1, name }]);
+    //         setName('');
+    //     }
+    // };
 
     const handleDelete = (id) => {
         const filteredCategories = categories.filter((category) => category.id !== id);
@@ -36,7 +52,8 @@ const CRUD_categoryView = () => {
     return (
         <div className='formcategory'>
             <h4>CRUD Category </h4>
-            <form onSubmit={handleSubmit}>
+            {/* onSubmit={handleSubmit} */}
+            <form >
                 <div className="mb-3">
 
                     <div className="input-group">
@@ -71,9 +88,9 @@ const CRUD_categoryView = () => {
                                 <button className="btn btn-warning" onClick={() => handleEdit(category)}>
                                     Edit
                                 </button>
-                                <button className="btn btn-danger" onClick={() => handleDelete(category.id)}>
+                                {/* <button className="btn btn-danger" onClick={() => handleDelete(category.id)}>
                                     Delete
-                                </button>
+                                </button> */}
                             </td>
                         </tr>
                     ))}

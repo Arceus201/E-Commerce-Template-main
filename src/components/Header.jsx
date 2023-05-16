@@ -15,6 +15,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 const Header = (props) => {
   //const [isLoggedIn, setIsLoggedIn] = useState();
   let user = JSON.parse(localStorage.getItem('user'));
+  let admin = JSON.parse(localStorage.getItem('admin'));
   const [cartid, setcartid] = useState(-1);
 
   useEffect(() => {
@@ -24,17 +25,6 @@ const Header = (props) => {
     }
   }, [cartid]);
 
-  //  console.log("user" + user.full_name);
-
-  useEffect(() => {
-    // const islogin = JSON.parse(localStorage.getItem('user'));
-
-    if (user != null) {
-      console.log("user" + user.full_name);
-
-    }
-
-  }, [user]);
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -45,13 +35,18 @@ const Header = (props) => {
 
 
 
-  //const [username, setUsername] = useState('');
+
 
 
   const handleLogout = () => {
     // setIsLoggedIn(false);
     // setIsLoggedIn.removeItem("isLoggedIn");
-    localStorage.removeItem("user")
+    if (user != null) {
+      localStorage.removeItem("user")
+    }
+    if (admin != null) {
+      localStorage.removeItem("admin")
+    }
     localStorage.removeItem("codecart")
     //  setIsLoggedIn.removeItem("user");
     window.location.href = `/`;
@@ -82,18 +77,24 @@ const Header = (props) => {
 
 
               {/* <div className="btn-group"> */}
-              {user != null ? (
+
+              {user !== null || admin !== null ? (
                 <div>
-                  <div className="position-relative d-inline me-3">
 
-                    <Link to={cartid === -1 ? "/cart/-1" : `/cart/${cartid}`} className="btn btn-primary">
-                      <IconCart3 className="i-va" />
-                      <div className="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle">
-                        {/* 2 */}
-                      </div>
-                    </Link>
+                  {user !== null &&
+                    <div className="position-relative d-inline me-3">
 
-                  </div>
+                      <Link to={cartid === -1 ? "/cart/-1" : `/cart/${cartid}`} className="btn btn-primary">
+                        <IconCart3 className="i-va" />
+                        <div className="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle">
+                          {/* 2 */}
+                        </div>
+                      </Link>
+                    </div>
+                  }
+
+
+
 
                   <div className="btn-group">
                     <button
@@ -112,11 +113,14 @@ const Header = (props) => {
                           <IconPersonBadgeFill /> Trang cá nhân
                         </Link>
                       </li>
-                      <li>
-                        <Link className="dropdown-item" to="/account/orders">
-                          <IconListCheck className="text-primary" /> Orders
-                        </Link>
-                      </li>
+                      {user !== null &&
+                        <li>
+                          <Link className="dropdown-item" to="/account/orders">
+                            <IconListCheck className="text-primary" /> Orders
+                          </Link>
+                        </li>
+                      }
+
 
                       <li>
                         <hr className="dropdown-divider" />
@@ -130,9 +134,17 @@ const Header = (props) => {
                         </Link>
                       </li>
                     </ul>
-                    <div>
-                      <span >{user.full_name}</span>
-                    </div>
+                    {user !== null &&
+                      <div>
+                        <span >{user.full_name}</span>
+                      </div>
+                    }
+                    {admin !== null &&
+                      <div>
+                        <span >{admin.full_name}</span>
+                      </div>
+
+                    }
                   </div>
                 </div>
 

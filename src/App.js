@@ -36,6 +36,7 @@ const BlogDetailView = lazy(() => import("./views/blog/Detail"));
 const CRUD_productView = lazy(() => import("./admin/CRUD_product"));
 const CU_productView = lazy(() => import("./admin/CU_product"));
 const CRUD_categoryView = lazy(() => import("./admin/CRUD_category"));
+const StatisticView = lazy(() => import("./admin/Statistic"))
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
             <Route exact path="/admin/crud-product" element={<CRUD_productView />} />
             <Route exact path="/admin/cu-product" element={<CU_productView />} />
             <Route exact path="/admin/crud-category" element={<CRUD_categoryView />} />
+            <Route exact path="/admin/statistic" element={<StatisticView />} />
 
           </Routes>
         </Suspense>
