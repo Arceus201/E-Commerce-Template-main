@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+import moment from 'moment';
+import axios from 'axios';
+=======
+>>>>>>> 6ac18ddd41b84cfefdb81a9288e51f1837f66068
+>>>>>>> Stashed changes
 import "react-datepicker/dist/react-datepicker.css";
 import "./admincss/statistic.css";
-// import "./admincss/custom-datepicker.css"
+import { defaultFormat } from "numeral";
 const initialFormValues = {
     fromDate: null,
     toDate: null,
 };
 
-const initialData = [{ id: 1, image: "https://via.placeholder.com/150", name: "Product 1", quantity: 5, price: 10, }, { id: 2, image: "https://via.placeholder.com/150", name: "Product 2", quantity: 10, price: 20, }, { id: 3, image: "https://via.placeholder.com/150", name: "Product 3", quantity: 15, price: 30, },];
-
 const StatisticView = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
-    const [data, setData] = useState(initialData);
+    const[data, setData] = useState([]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -23,21 +29,34 @@ const StatisticView = () => {
         setFormValues({ ...formValues, [name]: value });
     };
 
-    const handleViewClick = () => {
-        // Filter data based on date range
-        const filteredData = initialData.filter((item) => {
-            if (formValues.fromDate && formValues.toDate) {
-                const fromDate = new Date(formValues.fromDate);
-                const toDate = new Date(formValues.toDate);
-                const itemDate = new Date(item.date);
-                return itemDate >= fromDate && itemDate <= toDate;
-            } else {
-                return true;
-            }
-        });
+    const handleViewClick = async () => {
+        // const formattedFromDate = `${formValues.fromDate.toLocaleDateString()}-${formValues.fromDate.toLocaleTimeString().split(':').slice(0, 2).join(':')}`;
+        // const formattedToDate = `${formValues.toDate.toLocaleDateString()}-${formValues.toDate.toLocaleTimeString().split(':').slice(0, 2).join(':')}`;
 
-        // Set filtered data to state
-        setData(filteredData);
+        // const date = moment(dateString);
+        const formattedFromDate = moment(formValues.fromDate).format('DD/MM/YYYY-HH:mm');
+        const formattedToDate = moment(formValues.toDate).format('DD/MM/YYYY-HH:mm');
+        console.log(formattedFromDate);
+        console.log(formattedToDate);
+        // http://localhost:8080/api/revenue/statistics?start=10/05/2023-00:00&end=11/05/2023-00:00http://localhost:8080/api/revenue/statistics?start=10/05/2023-00:00&end=11/05/2023-00:00
+
+        try {
+            const response = await axios.get('http://localhost:8080/api/revenue/statistics', {
+                params: {
+                    start: formattedFromDate,
+                    end: formattedToDate,
+                }
+            });
+            // alert(JSON.stringify(response.data));
+            setData(response.data);
+            // alert(data[0].id)
+            // console.log("test"+data[0].id)
+            // alert(data.length)
+        } catch (error) {
+            console.error(error);
+        }
+        // alert((await response).data)
+
     };
 
     // Calculate total
@@ -58,7 +77,7 @@ const StatisticView = () => {
                         selected={formValues.fromDate}
                         onChange={(value) => handleDateChange("fromDate", value)}
                         dateFormat="dd/MM/yyyy"
-
+                        required
                         isClearable
                     />
                 </div>
@@ -70,7 +89,7 @@ const StatisticView = () => {
                         selected={formValues.toDate}
                         onChange={(value) => handleDateChange("toDate", value)}
                         dateFormat="dd/MM/yyyy"
-
+                        required
                         isClearable
                     />
                 </div>
@@ -78,13 +97,11 @@ const StatisticView = () => {
                     View
                 </button>
             </div>
-
-
             <table>
                 <thead>
                     <tr>
                         <th>Id Product</th>
-                        <th>Image</th>
+                        <th>Image Product</th>
                         <th>Name Product</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -93,21 +110,21 @@ const StatisticView = () => {
                 </thead>
                 <tbody>
                     {data.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
+                        <tr key={item.productId}>
+                            <td>{item.productId}</td>
                             <td>
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.productImage} alt={item.productName} />
                             </td>
-                            <td>{item.name}</td>
-                            <td>{item.quantity}</td>
-                            <td>{item.price}</td>
-                            <td>{item.quantity * item.price}</td>
+                            <td>{item.productName}</td>
+                            <td>{item.totalQuantity}</td>
+                            <td>{item.totalPrice}</td>
+                            <td>{item.totalQuantity * item.totalPrice}</td>
                         </tr>
                     ))}
                     <tr>
                         <td colSpan="5" className="text-end fw-bold">Total:</td>
                         <td>
-                            {data.reduce((total, item) => total + item.quantity * item.price, 0)}
+                            {data.reduce((total, item) => total + item.totalQuantity * item.totalPrice, 0)} 
                         </td>
                     </tr>
                 </tbody>
