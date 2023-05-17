@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+
 import moment from 'moment';
 import axios from 'axios';
-=======
->>>>>>> 6ac18ddd41b84cfefdb81a9288e51f1837f66068
->>>>>>> Stashed changes
+
+
 import "react-datepicker/dist/react-datepicker.css";
 import "./admincss/statistic.css";
 import { defaultFormat } from "numeral";
+import numeral from 'numeral';
 const initialFormValues = {
     fromDate: null,
     toDate: null,
@@ -18,7 +16,7 @@ const initialFormValues = {
 
 const StatisticView = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
-    const[data, setData] = useState([]);
+    const [data, setData] = useState([]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -101,7 +99,7 @@ const StatisticView = () => {
                 <thead>
                     <tr>
                         <th>Id Product</th>
-                        <th>Image Product</th>
+                        <th style={{ marginLeft: '50px' }}>Image Product</th>
                         <th>Name Product</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -113,18 +111,19 @@ const StatisticView = () => {
                         <tr key={item.productId}>
                             <td>{item.productId}</td>
                             <td>
-                                <img src={item.productImage} alt={item.productName} />
+                                <img src={item.productImage} alt={item.productName} style={{ width: '250px', height: '150px' }} />
                             </td>
                             <td>{item.productName}</td>
                             <td>{item.totalQuantity}</td>
-                            <td>{item.totalPrice}</td>
-                            <td>{item.totalQuantity * item.totalPrice}</td>
+                            <td>{numeral(item.totalPrice).format('0,0')}</td>
+
+                            <td>{numeral(item.totalQuantity * item.totalPrice).format('0,0')}</td>
                         </tr>
                     ))}
                     <tr>
                         <td colSpan="5" className="text-end fw-bold">Total:</td>
                         <td>
-                            {data.reduce((total, item) => total + item.totalQuantity * item.totalPrice, 0)} 
+                            {numeral(data.reduce((total, item) => total + item.totalQuantity * item.totalPrice, 0)).format('0,0')}
                         </td>
                     </tr>
                 </tbody>

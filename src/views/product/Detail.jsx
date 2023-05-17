@@ -167,7 +167,7 @@ const ProductDetailView = () => {
                         </button>
                       </Link>
 
-                      <Link to="/checkout" className="btn btn-sm btn-warning me-2">
+                      {/* <Link to="/checkout" className="btn btn-sm btn-warning me-2">
                         <button
                           type="button"
                           className="btn btn-sm btn-warning me-2"
@@ -175,7 +175,7 @@ const ProductDetailView = () => {
                         >
                           <FontAwesomeIcon icon={faShoppingCart} /> Buy now
                         </button>
-                      </Link>
+                      </Link> */}
                     </>
 
 
@@ -189,7 +189,7 @@ const ProductDetailView = () => {
                       <FontAwesomeIcon icon={faCartPlus} />
                     </Link>
                   </>
-                )};
+                )}
                 <br></br>
                 <br></br>
                 <p className="fw-bold mb-2 small">

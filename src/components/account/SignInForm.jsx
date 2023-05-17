@@ -43,9 +43,7 @@ const SignInForm = (props) => {
       });
 
       if (response.status === 200) {
-        toast.success('Đã lưu thành công!', {
-          position: toast.POSITION.BOTTOM_RIGHT
-        });
+        window.alert("Login thành công");
         const user = response.data.user;
 
         if (user.role === "USER") {
@@ -58,9 +56,7 @@ const SignInForm = (props) => {
         window.location.href = '/';
       }
     } catch (error) {
-      toast.success('Đăng nhập thất bại !', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      });
+      window.alert("Mật khẩu hoặc tài khoản chưa chính xác");
       console.log(error);
     }
   };

@@ -13,6 +13,8 @@ const CRUD_categoryView = () => {
         name2: ""
     });
 
+    const [isAddClicked, setIsAddClicked] = useState(false);
+
 
     const [isMounted, setIsMounted] = useState(false);
     const [isEditClicked, setIsEditClicked] = useState(false);
@@ -36,12 +38,25 @@ const CRUD_categoryView = () => {
     }, [fetchCategories, isMounted]);
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
+        console.log("Name " + name);
         event.preventDefault();
-        if (name.trim() !== '') {
-            setCategories([...categories, { id: categories.length + 1, name }]);
-            setName('');
-            setIsEditClicked(false);
+        if (isAddClicked && name.trim() !== '') {
+            try {
+                const response = await axios.post('http://localhost:8080/api/categories/add', {
+                    "name": name
+                });
+                if (response.status === 200) {
+                    setIsAddClicked(false);
+                    console.log("status" + response.data);
+                    fetchCategories();
+                    setName('');
+                    setIsEditClicked(false);
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -78,8 +93,8 @@ const CRUD_categoryView = () => {
     return (
         <div className='formcategory'>
             <h4>CRUD Category </h4>
-            {/* onSubmit={handleSubmit} */}
-            <form >
+
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3">
 
                     <div className="input-group">
@@ -90,7 +105,7 @@ const CRUD_categoryView = () => {
                             value={name}
                             onChange={(event) => setName(event.target.value)}
                         />
-                        <button className="btn btn-primary" type="submit">
+                        <button className="btn btn-primary" type="submit" onClick={() => setIsAddClicked(true)}>
                             Add
                         </button>
                     </div>

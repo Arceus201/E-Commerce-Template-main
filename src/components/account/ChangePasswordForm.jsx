@@ -23,10 +23,12 @@ const ChangePasswordForm = (props) => {
       "newPassword": password
     })
       .then(response => {
+        window.alert("Đổi mật khẩu thành công");
         console.log(response.data);
         // Xử lý thông báo thành công
       })
       .catch(error => {
+        window.alert("Đổi mật khẩu thất bại ");
         console.log(error);
         // Xử lý thông báo lỗi
       });

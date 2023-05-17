@@ -84,7 +84,7 @@ function App() {
             <Route path="*" element={<NotFoundView />} />
 
             <Route exact path="/admin/crud-product" element={<CRUD_productView />} />
-            <Route exact path="/admin/cu-product" element={<CU_productView />} />
+            <Route exact path="/admin/cu-product/:id" element={<CU_productView />} />
             <Route exact path="/admin/crud-category" element={<CRUD_categoryView />} />
             <Route exact path="/admin/statistic" element={<StatisticView />} />
 

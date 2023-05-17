@@ -10,7 +10,6 @@ const CRUD_productView = () => {
     const [formValues, setFormValues] = useState({
         id: "",
         name: "",
-        // category: "",
         image: "",
         quantity: "",
         price: ""
@@ -21,62 +20,27 @@ const CRUD_productView = () => {
             setProducts(result.data);
         };
         fetchData();
-    });
+    }, []);
 
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormValues({ ...formValues, [name]: value });
-    };
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const newProduct = {
-            id: Date.now(),
-            name: formValues.name,
-            // category: formValues.category,
-            image: formValues.image,
-            quantity: formValues.quantity,
-            price: formValues.price
-        };
-        setProducts([...products, newProduct]);
-        setFormValues({
-            id: "",
-            name: "",
-            // category: "",
-            image: "",
-            quantity: "",
-            price: ""
-        });
-    };
 
     const handleDeleteProduct = (id) => {
+        console.log("id" + id);
+        axios.delete(`http://localhost:8080/api/products/delete/${id}`);
         setProducts(products.filter((product) => product.id !== id));
     };
 
-    const handleUpdateProduct = (id) => {
-        const updatedProducts = products.map((product) =>
-            product.id === id ? { ...product, ...formValues } : product
-        );
-        setProducts(updatedProducts);
-        setFormValues({
-            id: "",
-            name: "",
-            // category: "",
-            image: "",
-            quantity: "",
-            price: ""
-        });
+    const handleSearch = (searchResults) => {
+        const products = searchResults;
+        setProducts(products);
     };
 
-    const handleEditProduct = (product) => {
-        setFormValues({ ...product });
-    };
 
     return (
         <div className="container">
             <h1>Product List</h1>
-            <Link to={'/admin/cu-product'}>
+            <Link to={`/admin/cu-product/-1`}>
                 <button
                     type="button"
                     className="btn btn-primary mb-3"
@@ -85,7 +49,7 @@ const CRUD_productView = () => {
                 </button>
             </Link>
             <div style={{ justifyContent: "center", width: "80%" }} >
-                <Search></Search>
+                <Search onSearch={handleSearch}></Search>
             </div>
             <table className="table">
                 <thead>
@@ -93,7 +57,6 @@ const CRUD_productView = () => {
                         <th>Image</th>
 
                         <th>Name</th>
-                        {/* <th>Category</th> */}
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Action</th>
@@ -107,17 +70,14 @@ const CRUD_productView = () => {
                             </td>
 
                             <td>{product.name}</td>
-                            {/* <td>{product.category_id}</td> */}
                             <td>{product.quantity}</td>
                             <td>{numeral(product.price).format('0,0')}</td>
                             <td>
-                                <Link to={'/admin/cu-product'}>
+                                <Link to={`/admin/cu-product/${product.id}`}>
                                     <button
                                         type="button"
                                         className="btn btn-primary"
-                                        // data-bs-toggle="modal"
-                                        // data-bs-target="#productModal"
-                                        onClick={() => handleEditProduct(product)}
+                                    // onClick={() => handleEditProduct(product)}
                                     >
                                         Edit
                                     </button>{" "}

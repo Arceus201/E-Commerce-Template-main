@@ -47,7 +47,7 @@ const SignUpForm = ({ history }) => {
         window.location.href = '/account/signin';
       }
     } catch (error) {
-      window.alert("Đăng ký thaatss bại");
+      window.alert("Đăng ký thất bại");
       console.log(error);
     }
   };
