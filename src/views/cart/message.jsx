@@ -50,6 +50,7 @@ function PaymentSuccess() {
 
             // const firstTwoValues = vnp_TxnRef.split(',')[0] + ',' + vnp_TxnRef.split(',')[1]; // Lấy 2 giá trị đầu tiên
             const result = vnp_TxnRef.split('.')[0].split(',').map(Number); // Convert các giá trị sang number
+            console.log("result:"+result);
             // for (let i = 0; i < result.length; i++) {
             //     console.log(result[i]);
             // }
@@ -66,6 +67,7 @@ function PaymentSuccess() {
             }).then(response => {
                 // Xử lý kết quả trả về từ API
                 console.log(response.status);
+                console.log(response.data.error)
                 if (response.status === 200) {
                     // axios.delete('https://example.com/api/orders', {
                     //     "productIds": result,

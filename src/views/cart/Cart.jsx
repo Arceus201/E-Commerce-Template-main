@@ -70,7 +70,7 @@ const CartView = () => {
 
   const handleMakePurchase = (event) => {
     const checkedCarts = Carts.filter(cart => cart.isChecked);
-    const cartIds = checkedCarts.map(cart => cart.id);
+    const cartIds = checkedCarts.map(cart => cart.product.id);
     const code = cartIds.join(',') + "." + currentTime.toLocaleTimeString() + "." + id;
     console.log("code:" + code);
     axios.get('http://localhost:8080/api/payments/create', {
